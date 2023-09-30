@@ -36,7 +36,7 @@ class NegotiationAgent():
 
         item_description = build_item_description(items)
         value_description = build_value_description(values)
-        
+
         default_prompt = f'''{name} and {opp_name} are trying to split {item_description} \
 amongst themselves. The value of the books, hats, and balls changes across scenarios. \
 The items have different values for {name} and {opp_name}. \
@@ -65,5 +65,5 @@ You cannot propose a split with more than {item_description}'''
         return(completion.choices[0].message.content)
 
     def add_message_to_history(self, message, sender='user'):
-        self.history += {"role":sender, "message":message}
+        self.history.append({"role":sender, "content":message})
 
