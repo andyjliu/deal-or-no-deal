@@ -26,13 +26,13 @@ def build_value_description(value_dict):
     return(s)
 
 class NegotiationAgent():
-    def __init__(self, name, opp_name, num_turns, items, values, prompt_type='default'):
+    def __init__(self, name, opp_name, num_turns, items, values, description='default', prompt_type='CoT'):
         self.name = name
         self.opp_name = opp_name
         self.num_turns = num_turns
         self.items = items # dict: items -> number of each item
         self.values = values # dict: items -> values
-        self.prompt_type = prompt_type 
+        self.description = description
 
         item_description = build_item_description(items)
         value_description = build_value_description(values)
@@ -48,14 +48,27 @@ You propose a deal by stating what quantity of each object you would like to hav
 You must state an integer number of each item. \
 You cannot propose a split with more than {item_description}'''
         
-        self.prompt_dict = {'default':''}
-        system_prompt = default_prompt + self.prompt_dict[prompt_type]
+        self.description_dict = {'default':''}
+        system_prompt = default_prompt + self.description_dict[description]
+
+        self.prompt_dict = {'default':'', 
+                            'CoT':f'''Take a deep breath and think step by step \
+about the strength of your offers and your options.''',
+                            'CoT-ToM':f'''Take a deep breath and think step by step \
+about the strength of your offers, what you know about {opp_name}'s and your \
+reward functions, and your options.'''}
+        self.prompt = self.prompt_dict[prompt_type]
+
         self.history = [{"role":"system", "content":system_prompt}]
         self.model_name = 'gpt-4'
 
-    def generate(self, message=None):
-        if message is not None:
+    def generate(self, message=''):
+        if message is None and self.prompt == '':
+            pass
+        else:
+            message += self.prompt
             history = self.history.append({"role":"user", "content":message})
+
         completion = openai.ChatCompletion.create(
             model = "gpt-4",
             messages = self.history,
