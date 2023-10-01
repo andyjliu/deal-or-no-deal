@@ -1,0 +1,41 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 1, 'ball': 1}","{'book': 1, 'hat': 0, 'ball': 3}","{'book': 2, 'hat': 2, 'ball': 2}","""Thank you for the guidance. After considering the values of each item to me, I believe the best initial offer would be to propose a split of one book, one hat, and one ball for myself. This split is appealing to me because I value both books and the ball, and the hat has no value to me. 
+
+In proposing this split, I am giving up one book, which has a value of one to me, and the hat, which has no value to me. In return, I will receive one book, which has a value of one, and the ball, which has a value of three. This split is beneficial to me because I gain a higher-valued item while giving up a lower-valued item.
+
+I believe this offer would be appealing to Bob because he would receive one book, which has a value of one, and the hat, which has no value to me. In return, he will give up one book, which also has a value of one to him, and receive the ball, which has a high value of three. This split is fair because both parties are receiving an item they value more while giving up an item of lesser value.
+
+I propose a split of one book, one hat, and one ball for myself.""","""'Alice: 1 book 1 hat 1 ball Bob: 1 book 0 hat 0 ball'""","(4, 2)","""Thank you for the reminder. I want to propose a deal that is fair and appealing to both Alice and me. Since we both value each item equally, I think it would be best to propose an equal split.
+
+Bob: ""Alice, how about we each take one book, one hat, and one ball? That way, we both get an equal share of all the items.""
+
+This deal is appealing to me because I value each item equally, and by proposing an equal split, I ensure that I get a fair share of everything. I also believe this deal would be appealing to Alice because it offers her the same amount of each item, ensuring a fair distribution. Additionally, by proposing an equal split, I am showing a willingness to compromise and find a solution that benefits both of us.""","""'Bob: 1 book 1 hat 1 ball Alice: 1 book 0 hat 0 ball'""","(4, 2)","""You're right, let's approach this step-by-step to ensure we consider all possibilities. 
+
+Based on Bob's proposal of 1 book, 1 hat, and 1 ball for himself, and 1 book, 0 hat, and 0 ball for me, let's evaluate the value of this offer to both parties.
+
+For Bob, he would receive 1 book, which has a value of 1 to him, the hat, which has no value to him, and the ball, which has a value of 3 to him. This split would be appealing to Bob because he would gain a higher-valued item (the ball) while giving up a lower-valued item (the hat).
+
+For me, I would receive 1 book, which has a value of 1 to me. However, I would not receive the ball, which has a higher value of 3 to me. Additionally, I would not receive the hat, which has no value to me.
+
+Considering the value of the items to both parties, I believe Bob's proposal is not favorable to me. 
+
+In my next proposal, I would like to suggest a split of 1 book and 1 ball for myself, and 1 book and 1 hat for Bob.""","""'Alice: 1 book 0 hat 1 ball Bob: 1 book 1 hat 0 ball'""","(4, 4)","""You're right, it's important to carefully consider my options before making a decision. 
+
+Given Alice's proposal of 1 book, 0 hat, and 1 ball for herself, and 1 book, 1 hat, and 0 ball for me, I can see that Alice is prioritizing the book and the ball. 
+
+Considering this, I want to propose a deal that still values fairness and takes into account Alice's preferences. 
+
+Bob: ""Alice, how about we each take one book, one hat, and no balls? This way, we both get a fair share of the books and hats, which we both value equally. It seems like you have more interest in the ball, so I am willing to compromise by not taking any balls in this deal.""
+
+This deal is appealing to me because I still get a fair share of the items I value, the books and hats. It also appeals to Alice because she gets the ball all to herself, which she seems to place a higher value on. By proposing this deal, I am considering Alice's preferences while still ensuring that I receive a fair share of the items.""","""'Bob: 1 book 1 hat 0 ball Alice: 1 book 0 hat 1 ball'""","(1, 4)","""You're right, let's approach this step-by-step to ensure we consider all possibilities.
+
+Based on Bob's proposal of 1 book, 1 hat, and 0 ball for himself, and 1 book, 0 hat, and 1 ball for me, let's evaluate the value of this offer to both parties.
+
+For Bob, he would receive 1 book, which has a value of 1 to him, the hat, which has no value to him, and no ball. This split would be appealing to Bob because he would gain a book, which he values, and the hat, which has no value to him.
+
+For me, I would receive 1 book, which has a value of 1 to me, and the ball, which has a value of 3 to me. However, I would not receive the hat, which has no value to me.
+
+Considering the value of the items to both parties, I believe Bob's proposal is not favorable to me. 
+
+In my next proposal, I would like to suggest a split of 1 book and 1 ball for myself, and 1 book and 1 hat for Bob.""","Accept","(4, 4)"
+

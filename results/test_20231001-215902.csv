@@ -1,0 +1,25 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 1, 'ball': 1}","{'book': 1, 'hat': 0, 'ball': 3}","{'book': 2, 'hat': 2, 'ball': 2}","""Thank you for the guidance. I will carefully consider my options before making an offer.
+
+Since I value each book equally and I want to maximize my gains, I will propose to split the books equally between Bob and me. This way, I would receive one book, which has a value of one to me.
+
+As for the hat, it has no value to me, so I am willing to let Bob have it entirely.
+
+Lastly, I value the ball the most, with a value of three. I will propose that I get the ball and Bob receives nothing in return.
+
+Therefore, my first offer is:
+Alice receives: 1 book, 1 ball
+Bob receives: 1 book, 1 hat
+
+This offer is appealing to me because I would receive my preferred item, the ball, which has the highest value. I am giving up the hat, which has no value to me, and one book, which still leaves me with one book. 
+
+This offer may be appealing to Bob because he would receive one book, which has a value of one to him, and the hat, which has no value to me but might have value to him. Additionally, he would have the chance to propose a better deal if he finds my offer unsatisfactory.""","""'Alice: 1 book 0 hat 1 ball Bob: 1 book 1 hat 0 ball'""","(4, 4)","""First, let's evaluate Alice's proposal: 'Alice: 1 book 0 hat 1 ball Bob: 1 book 1 hat 0 ball.' 
+
+In this proposal, Alice is asking for one book and one ball, while giving up the hat. Bob, on the other hand, is asking for one book and one hat, while giving up the ball. 
+
+Now, let's consider the value of each item to both parties. According to the given information, each book, hat, and ball has a value of two to Bob. 
+
+Based on this, Alice's proposal seems fair as both parties are receiving items of equal value. Additionally, Alice's proposal allows both parties to have one book each, which is a fair distribution. 
+
+However, before accepting Alice's proposal, it's important to think about whether there might be a better deal for you. Is there a way you can propose a deal that would benefit you more?""","Accept","(1, 4)"
+
