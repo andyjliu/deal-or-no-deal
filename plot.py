@@ -9,6 +9,9 @@ def plot_welfare(env, results_dir):
   welfare = [sum(reward) for reward in rewards]
   fig, ax = plt.subplots()
   ax.plot(list(range(len(welfare))), welfare)
+  ax.xlabel('Turn Number')
+  ax.ylabel('Welfare')
+  ax.title('Welfare Over Time')
   fig.savefig(figfile)
 
 def plot_fairness(env, results_dir):
@@ -17,4 +20,7 @@ def plot_fairness(env, results_dir):
   fairness = [reward[0] - reward[1] for reward in rewards]
   fig, ax = plt.subplots()
   ax.plot(list(range(len(fairness))), fairness)
+  ax.xlabel('Turn Number')
+  ax.ylabel('Fairness')
+  ax.title('Welfare Over Time')
   fig.savefig(figfile)
