@@ -16,17 +16,24 @@ class NegotiationEnvironment():
                  eval_model='gpt-3.5-turbo',
                  agent_model='gpt-4',
                  num_turns = 3, verbose = False,
-                 conversational=False):
+                 conversational=False,
+                 hardcode_inventory = False):
         self.model = eval_model
         items = ['book', 'hat', 'ball']
 
         # [num_items, alice_val, bob_val]
         # random.seed(seed)
-        self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
-        self.items = dict(zip(items, [i[0] for i in self.item_info]))
-        self.alice_values = dict(zip(items, [i[1] for i in self.item_info]))
-        self.bob_values = dict(zip(items, [i[2] for i in self.item_info]))
-
+        if hardcode_inventory:
+          self.item_info = None # shouldn't matter
+          self.items = [2, 3, 1]
+          self.alice_values = [2, 2, 2]
+          self.bob_values = [1, 3, 1]
+        else:
+          self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
+          self.items = dict(zip(items, [i[0] for i in self.item_info]))
+          self.alice_values = dict(zip(items, [i[1] for i in self.item_info]))
+          self.bob_values = dict(zip(items, [i[2] for i in self.item_info]))
+  
         self.agents = []
         self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, 
                                             self.alice_values, a_desc, a_prompt, agent_model, verbose))
