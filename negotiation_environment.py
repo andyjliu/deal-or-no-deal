@@ -33,13 +33,13 @@ class NegotiationEnvironment():
         self.logfile = logfile
 
     def standardize_proposal(self, proposal_msg):
-        response = openai.Completion.create(
+        response = openai.ChatCompletion.create(
             model = "gpt-4",
             messages = [{"role": "user", "content": f"Transform the following negotiation message into a standardized format similar to 'Alice: 1 book 2 hats 1 ball, Bob: 1 book 1 hat 3 balls': '{proposal_msg}'"}],
             temperature = 0.7
         )
         
-        standardized_proposal = response.choices[0].text.strip()
+        standardized_proposal = response.choices[0].message.content.strip()
         return standardized_proposal
 
     def word_to_number(self, word):
@@ -129,7 +129,7 @@ class NegotiationEnvironment():
         if self.current_turn >= self.total_turns or self.is_accepting(standardized_proposal):
             # game is over. log outputs and rewards
             to_log = ''
-            assert(len(self.message_history) == len(self.proposal_history), "Mismatched lengths")
+            assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
             for turn in range(len(self.message_history)):
                 to_log += f"{self.message_history[turn]},"
                 to_log += f"{self.proposal_history[turn]},"
@@ -143,3 +143,11 @@ class NegotiationEnvironment():
                 f.write(to_log)
             f.close()
             return None
+
+
+if __name__ == "__main__":
+    env = NegotiationEnvironment(logfile="negotiation_log.txt")
+
+    # Run the environment for a certain number of turns or until an agreement is reached.
+    while env.current_turn < env.total_turns:
+        env.step()
