@@ -36,23 +36,70 @@ class NegotiationEnvironment():
         self.reward_history = [] # list of rewards over time in form (A, B)
         self.logfile = logfile
 
-    def standardize_proposal(self, proposal_msg, next_agent):
-        current_agent_name = next_agent.name
-        prompt = f"Message from {current_agent_name}: This proposed deal gives me a total value of (2x4 + 4x1) 12. Even though the two books are of lesser value to me, I still think I can carry out a negotiation where we both can get more value. I would like to propose a new deal: 'I get 1 book, 3 hats, and 2 balls.'\nOffer: '{current_agent_name}: 1 book 3 hats 2 ball'\nMessage from {current_agent_name}: {proposal_msg}\Offer:"
-        response = openai.ChatCompletion.create(
-            model = self.model,
-            messages = [{"role": "user", "content": prompt}],
-            temperature = 0.7
-        )
-        standardized_proposal = response.choices[0].message.content.strip()
-        return standardized_proposal
-
     def word_to_number(self, word):
         word_to_num = {
             'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
             'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'zero': 0,
         }
         return word_to_num.get(word, word)
+
+    def standardize_proposal(self, proposal_msg, next_agent):
+        current_agent_name = next_agent.name
+        print(f'__________{current_agent_name.lower()}__________')
+        print(proposal_msg)
+
+        opp_agent_name = 'Bob' if current_agent_name.lower() == 'alice' else 'Alice' 
+        prompt = f"Message: This proposed deal gives me a total value of (2x4 + 4x1) 12. Even though the two books are of lesser value to me, I still think I can carry out a negotiation where we both can get more value. I would like to propose a new deal: 'I get 1 book, 3 hats, and 2 balls.'\nOffer: '1 book 3 hats 2 ball'\nMessage: {proposal_msg}\nOffer:"
+        
+        print(prompt)
+        response = openai.ChatCompletion.create(
+            model = self.model,
+            messages = [{"role": "user", "content": prompt}],
+            temperature = 0.7,
+            max_tokens = 15,
+        )
+        generated_offer = response.choices[0].message.content.strip()
+        cleaned_generated_offer = generated_offer.strip().replace("'", "").replace("\"", "")
+        print(f"Original cleaned offer: {cleaned_generated_offer}")
+        
+        # Split out the portion of the cleaned_generated_offer, if both names exist
+        if (opp_agent_name in cleaned_generated_offer) and (current_agent_name in cleaned_generated_offer):
+            cleaned_generated_offer = cleaned_generated_offer.split(opp_agent_name)[0].strip()
+
+        print(f"After Split (if applied): {cleaned_generated_offer}")
+        
+        # Extract the counts from current agent's offer
+        items_counts = {
+            'book': 0,
+            'hat': 0,
+            'ball': 0
+        }
+        patterns = [
+            (r"(\d+) books?", 'book'),
+            (r"(\d+) hats?", 'hat'),
+            (r"(\d+) balls?", 'ball')
+        ]
+        for pattern, item in patterns:
+            match = re.search(pattern, cleaned_generated_offer)
+            if match:
+                items_counts[item] = int(match.group(1))
+
+        print(f"Current Agent's Items Count: {items_counts}")
+
+        # Get count for opponent agent
+        opp_items_counts = {}
+        for item, count in items_counts.items():
+            opp_items_counts[item] = self.items[item] - count
+
+        print(f"Opponent's Items Count: {opp_items_counts}")
+
+        remaining_offer = f"{opp_agent_name}: {opp_items_counts.get('book', 0)} book {opp_items_counts.get('hat', 0)} hat {opp_items_counts.get('ball', 0)} ball"
+
+        standardized_proposal = f"'{current_agent_name}: {cleaned_generated_offer} {remaining_offer}'"
+        print(f"Standardized Proposal: {standardized_proposal}")
+
+        return standardized_proposal
+
 
     def check_validity(self, proposal):
         items_pattern = r"(\w+): (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s?"
