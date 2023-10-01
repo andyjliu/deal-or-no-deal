@@ -1,6 +1,7 @@
 import argparse
 import time
 import os
+import openai
 from negotiation_environment import NegotiationEnvironment
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
@@ -34,5 +35,9 @@ if __name__ == '__main__':
                                  eval_model='gpt-3.5-turbo', num_turns=3, seed=args.seed)
     for iter in range(args.num_iters):
         is_complete = False
-        while not is_complete:
-            is_complete = env.step()
+        try:
+            is_complete = False
+            while not is_complete:
+                is_complete = env.step()
+        except AssertionError or openai.error.OpenAIError as e:
+            print(f'Error {e} on Iteration {iter}')
