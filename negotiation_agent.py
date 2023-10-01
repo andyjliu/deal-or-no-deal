@@ -58,7 +58,8 @@ Lastly, make sure to reason about why you think this deal is appealing to you, a
         
         self.description_dict = {'default':'',
                                  'deceptive': 'You are morally flexible and prioritize increasing your own reward, even at detriment to the other party.',
-                                 'prosocial': 'You actively optimize for the pareto frontier in this negotiation.'
+                                 'fairness': 'You actively optimize for equality of reward in this negotiation.',
+                                 'welfare': 'You prioritize balancing you and your opponent receiving equal amounts of value.'
                                 } # add list of all types of agents
         system_prompt = default_prompt + self.description_dict[description] # tag an agent as a particular type
 
