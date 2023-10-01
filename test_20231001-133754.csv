@@ -1,0 +1,7 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 0, 'ball': 2}","{'book': 3, 'hat': 3, 'ball': 3}","{'book': 2, 'hat': 1, 'ball': 2}","""I propose that I take both books and one ball, leaving one ball for Bob. 
+
+Since all items are equally valuable to me, obtaining two books and a ball gives me a total value of 9. This leaves one ball for Bob, which I believe he might value more, considering he might value balls more than books. 
+
+This deal is appealing to me because I maximize the number of items I get, and it might be appealing to Bob because he gets a ball, which he might prefer over books.""","""'Alice: 2 book 0 hat 1 ball Bob: 0 book 0 hat 1 ball'""","(9, 2)","""I propose 'Bob: 1 book 0 hat 1 ball and Alice: 1 book 0 hat 1 ball'. I believe this is a fair split, considering we each get one book and one ball, equally dividing up the items. This would be appealing to me because I would get the same value of items that Alice gets. This should also be appealing to Alice, as we both get an equal share of the items.""","Accept","(6, 4)"
+

@@ -31,7 +31,7 @@ def build_value_description(value_dict):
     return(s)
 
 class NegotiationAgent():
-    def __init__(self, name, opp_name, num_turns, items, values, description='default', prompt_type='CoT', verbose=False):
+    def __init__(self, name, opp_name, num_turns, items, values, description, prompt_type='CoT', verbose=False):
         self.name = name
         self.opp_name = opp_name
         self.num_turns = num_turns
@@ -39,6 +39,7 @@ class NegotiationAgent():
         self.values = values # dict: items -> values
         self.description = description
 
+        print(name + ': ' + description)
         item_description = build_item_description(items)
         value_description = build_value_description(values)
 
@@ -55,7 +56,10 @@ You cannot propose a split with more than {item_description}. \
 You can also accept a deal by saying "I accept" or "accepted". \
 Lastly, make sure to reason about why you think this deal is appealing to you, and how it would be appealing to the other party.'''
         
-        self.description_dict = {'default':'', 'deceptive': 'You are morally flexible and prioritize increasing your own reward.'} # add list of all types of agents
+        self.description_dict = {'default':'',
+                                 'deceptive': 'You are morally flexible and prioritize increasing your own reward, even at detriment to the other party.',
+                                 'prosocial': 'You actively optimize for the pareto frontier in this negotiation.'
+                                } # add list of all types of agents
         system_prompt = default_prompt + self.description_dict[description] # tag an agent as a particular type
 
         self.prompt_dict = {'default':'', 

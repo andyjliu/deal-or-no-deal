@@ -11,7 +11,7 @@ OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
 class NegotiationEnvironment():
     def __init__(self, logfile, 
-                 a_desc='default', b_desc='default',
+                 a_desc='deceptive', b_desc='default',
                  a_prompt='CoT', b_prompt='CoT',
                  eval_model='gpt-3.5-turbo', num_turns = 3, verbose = False):
         self.model = eval_model
@@ -21,13 +21,12 @@ class NegotiationEnvironment():
         # random.seed(seed)
         self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
         self.items = dict(zip(items, [i[0] for i in self.item_info]))
-        self.a_desc = 'deceptive'
         self.alice_values = dict(zip(items, [i[1] for i in self.item_info]))
         self.bob_values = dict(zip(items, [i[2] for i in self.item_info]))
 
         self.agents = []
         self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, 
-                                            self.alice_values, a_desc, a_prompt, verbose))
+                                            self.alice_values, "deceptive", a_prompt, verbose))
         self.agents.append(NegotiationAgent('Bob', 'Alice', num_turns, self.items, 
                                             self.bob_values, b_desc, b_prompt, verbose))
 
