@@ -21,6 +21,8 @@ class NegotiationEnvironment():
         self.model = eval_model
         items = ['book', 'hat', 'ball']
 
+        self.num_turns = num_turns
+
         # [num_items, alice_val, bob_val]
         # random.seed(seed)
         if hardcode_inventory:
@@ -255,9 +257,8 @@ class NegotiationEnvironment():
         num_attempts = 0
         turn_dict = {1:'first', 2:'second', 3:'third'}
         turn_key = self.current_turn // 2 + 1
-        turn_string = turn_dict.get(turn_key, f'{turn_key}th')
 
-        message = f'It is your turn to take your {turn_string} action, {next_agent.name}.'
+        message = f'It is your turn to take an action, {next_agent.name}. This is turn number {turn_key} out of {self.num_turns}'
         if self.current_turn == self.total_turns - 1:
             message += ' Since this is the last turn, you must accept or nobody will get any reward.'
         next_message = next_agent.generate(message=message)
