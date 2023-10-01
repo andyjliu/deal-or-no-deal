@@ -51,9 +51,7 @@ class NegotiationEnvironment():
         acceptance_terms = ['accepted','accept']
 
         # Check if any of acceptance terms above is in the proposal
-        if any(term in proposal for term in acceptance_terms):
-            return True
-        return False
+        return any(term in proposal for term in acceptance_terms)
 
     def standardize_proposal(self, proposal_msg, next_agent):
         # Standardizing to make it easy to pick out the numbers of items an agent is proposing
