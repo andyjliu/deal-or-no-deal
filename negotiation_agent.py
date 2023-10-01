@@ -31,7 +31,7 @@ def build_value_description(value_dict):
     return(s)
 
 class NegotiationAgent():
-    def __init__(self, name, opp_name, num_turns, items, values, description, prompt_type='CoT', agent_model='gpt-4', verbose=False):
+    def __init__(self, name, opp_name, num_turns, items, values, description, prompt_type='CoT', agent_model="gpt-4", verbose=False):
         self.name = name
         self.opp_name = opp_name
         self.num_turns = num_turns
@@ -74,9 +74,8 @@ about the strength of your offers, what you know about how {opp_name} and you va
         self.history = [{"role":"system", "content":system_prompt}]
         self.model_name = 'gpt-4'
         self.verbose = verbose
-        if self.verbose:
-            print(f'{name} Values Items Like So: ' + value_description)
-            print('Total Inventory: ' + item_description  + '\n')
+        print(f'{name} Values Items Like So: ' + value_description)
+        print('Total Inventory: ' + item_description  + '\n')
 
     def generate(self, message=''):
         if message is None and self.prompt == '':
@@ -86,8 +85,9 @@ about the strength of your offers, what you know about how {opp_name} and you va
             history = copy.deepcopy(self.history)
             history.append({"role":"user", "content":message})
         # pdb.set_trace()
+        
         completion = openai.ChatCompletion.create(
-            model = self.agent_model,
+            model = "gpt-3.5-turbo",
             messages = history,
             temperature = 0.7,
             max_tokens = 256,

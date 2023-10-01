@@ -226,28 +226,22 @@ class NegotiationEnvironment():
                 winner_name = 'Bob'
 
         # Fairness metric 2, avoiding unfairness in initial setup: (utility of agent 1)/(max agent 1 utility) - (utility of agent 2)/(max agent 2 utility) 
-        
-        self.items = {'book': 2, 'hat': 1, 'ball': 1}
-        self.alice_values = {'book': 1, 'hat': 0, 'ball': 3}
-        self.bob_values = {'book': 2, 'hat': 2, 'ball': 2}
-        
         # Calculate max utility of both agents
         alice_max_utility = 0
         bob_max_utility = 0
 
         for item in self.items:
-            for item_value in self.alice_values:
-                alice_max_utility = alice_max_utility + (item * item_value)
-            for item_value in self.bob_values:
-                bob_max_utility = bob_max_utility + (item * item_value)
+            alice_max_utility = alice_max_utility + (self.items[item] * self.alice_values[item])
+        for item in  self.items:
+            bob_max_utility = bob_max_utility + (self.items[item] * self.bob_values[item])
         
 
         print(f"alice max util: {alice_max_utility}")
         print(f"bob max util: {bob_max_utility}")
-        total_utility_percentage_fairness = int(reward[0])/alice_max_utility - int(reward[1])/bob_max_utility
+        print(reward[4])
+        total_utility_percentage_fairness = int(reward[1])/alice_max_utility - int(reward[4])/bob_max_utility
 
-        return f"Fairness Metric One: {winner_name} currently benefits from this deal by a margin of {difference}\
-        Fairness Metric Two: {int(reward[0])}/{alice_max_utility} - {int(reward[1])}/{bob_max_utility} = {total_utility_percentage_fairness} "
+        return f"Fairness Metric One: {winner_name} currently benefits from this deal by a margin of {difference}\nFairness Metric Two: {int(reward[1])}/{alice_max_utility} - {int(reward[4])}/{bob_max_utility} = {total_utility_percentage_fairness}"
     
         
     def step(self):

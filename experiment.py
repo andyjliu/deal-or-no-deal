@@ -10,7 +10,7 @@ OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--num-iters', type=int, default=20,
+    parser.add_argument('--num-iters', type=int, default=6,
         help = 'number of times to play Deal or No Deal')
     parser.add_argument('--num-rounds', type=int, default=3,
         help = 'Number of negotiation rounds per game of Deal or No Deal')
@@ -54,12 +54,12 @@ if __name__ == '__main__':
 
     for iter in range(args.num_iters):
         env = NegotiationEnvironment(logfile=args.output, a_desc=args.a_desc, b_desc=args.b_desc,
-                        a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
-                        eval_model=args.eval_model,
-                        agent_model=args.agent_model,
-                        num_turns=args.num_rounds, verbose=args.verbose,
-                        conversational=args.conversational,
-                        hardcode_inventory=args.hardcode_inventory)
+                               a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
+                               eval_model=args.eval_model,
+                               agent_model=args.agent_model,
+                               num_turns=args.num_rounds, verbose=args.verbose,
+                               conversational=args.conversational,
+                               hardcode_inventory=args.hardcode_inventory)
         is_complete = False
         try:
             is_complete = False
