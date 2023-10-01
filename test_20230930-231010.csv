@@ -1,3 +1,0 @@
-Alright, let's start by proposing a deal where I take two books, the hat, and one ball. That way, it would give me a total value of 9. Bob would get one book and two balls, which may seem fair to him depending on his values. 
-
-So my proposal is: I get two books, one hat, and one ball.|'Alice: 2 book 1 hat 1 ball Bob: 1 book 0 hat 2 ball'|(9, 3)|Bob's proposal: 'Bob: 2 books, 1 hat, 1 ball. Alice: 1 book, 0 hats, 2 balls'|Accept|(8, 4)
