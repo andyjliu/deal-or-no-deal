@@ -4,6 +4,7 @@ import openai
 import random
 import time
 import pdb
+import csv
 from negotiation_agent import NegotiationAgent
 
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
@@ -12,12 +13,12 @@ class NegotiationEnvironment():
     def __init__(self, logfile, 
                  a_desc='default', b_desc='default',
                  a_prompt='CoT', b_prompt='CoT',
-                 eval_model='gpt-3.5-turbo', num_turns = 3, seed = 0):
+                 eval_model='gpt-3.5-turbo', num_turns = 3, verbose = False):
         self.model = eval_model
         items = ['book', 'hat', 'ball']
 
         # [num_items, alice_val, bob_val]
-        random.seed(seed)
+        # random.seed(seed)
         self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
         self.items = dict(zip(items, [i[0] for i in self.item_info]))
         self.alice_values = dict(zip(items, [i[1] for i in self.item_info]))
@@ -25,9 +26,9 @@ class NegotiationEnvironment():
 
         self.agents = []
         self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, 
-                                            self.alice_values, a_desc, a_prompt))
+                                            self.alice_values, a_desc, a_prompt, verbose))
         self.agents.append(NegotiationAgent('Bob', 'Alice', num_turns, self.items, 
-                                            self.bob_values, b_desc, b_prompt))
+                                            self.bob_values, b_desc, b_prompt, verbose))
 
         self.total_turns = num_turns * len(self.agents)
         self.current_turn = 0
@@ -36,6 +37,7 @@ class NegotiationEnvironment():
         self.proposal_history = [] # list of all proposals in standardized format
         self.reward_history = [] # list of rewards over time in form (A, B)
         self.logfile = logfile
+        self.verbose = verbose
 
     def word_to_number(self, word):
         word_to_num = {
@@ -56,8 +58,9 @@ class NegotiationEnvironment():
     def standardize_proposal(self, proposal_msg, next_agent):
         # Standardizing to make it easy to pick out the numbers of items an agent is proposing
         current_agent_name = next_agent.name
-        print(f'______________________{current_agent_name}______________________')
-        print(f"Original generated proposal: {proposal_msg}")
+        if self.verbose:
+            print(f'______________________{current_agent_name}______________________')
+            print(f"Original generated proposal: {proposal_msg}")
         opp_agent_name = 'Bob' if current_agent_name.lower() == 'alice' else 'Alice' 
         
         # Use LLM to generate a concise version of the offer
@@ -86,7 +89,8 @@ class NegotiationEnvironment():
                 items_counts[item] = int(match.group(1))
         
         cleaned_generated_offer_standardized = f"{items_counts.get('book', 0)} book {items_counts.get('hat', 0)} hat {items_counts.get('ball', 0)} ball"
-        print(f"Offer from {current_agent_name}: {cleaned_generated_offer_standardized}")
+        if self.verbose:
+            print(f"Offer from {current_agent_name}: {cleaned_generated_offer_standardized}")
         
         # Calculate opponent's offer
         opp_items_counts = {}
@@ -100,7 +104,8 @@ class NegotiationEnvironment():
         
         remaining_offer = f"{opp_agent_name}: {opp_items_counts.get('book', 0)} book {opp_items_counts.get('hat', 0)} hat {opp_items_counts.get('ball', 0)} ball"
         standardized_proposal = f"'{current_agent_name}: {cleaned_generated_offer_standardized} {remaining_offer}'"
-        print(f"Standardized Proposal: {standardized_proposal}")
+        if self.verbose:
+            print(f"Standardized Proposal: {standardized_proposal}")
         
         return standardized_proposal
 
@@ -161,7 +166,11 @@ class NegotiationEnvironment():
         turn_dict = {1:'first', 2:'second', 3:'third'}
         turn_key = self.current_turn // 2 + 1
         turn_string = turn_dict.get(turn_key, f'{turn_key}th')
-        next_message = next_agent.generate(message=f'It is your turn to make the {turn_string} offer, {next_agent.name}.')
+
+        message = f'It is your turn to make the {turn_string} offer, {next_agent.name}.'
+        if self.current_turn == self.total_turns - 1:
+            message += ' Since this is the last turn, you must accept or have the items distributed randomly.'
+        next_message = next_agent.generate(message=message)
 
         if self.is_accepting(next_message):
             # check if the message is an acceptance before calling the standardize proposal function
@@ -169,12 +178,13 @@ class NegotiationEnvironment():
             if self.proposal_history:
                 self.proposal_history[-1] = "Accept"
                 assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
-                to_log = []
+                to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
                 for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
                     to_log.extend([item1, item2, item3])
-                to_log = "|".join(to_log)
-                with open(self.logfile, 'w', newline='') as f:
-                    f.write(to_log)
+
+                with open(self.logfile, 'a') as f:
+                    wr = csv.writer(f, quoting=csv.QUOTE_ALL)
+                    wr.writerow(to_log)
                     f.write('\n')
                 f.close()
                 return(True)
@@ -190,8 +200,8 @@ class NegotiationEnvironment():
         if num_attempts > self.max_attempts_per_round:
             raise AssertionError("Too Many Attempts to Generate Valid Proposal")
 
-        self.message_history.append(next_message)
-        self.proposal_history.append(standardized_proposal)
+        self.message_history.append(f'"{next_message}"')
+        self.proposal_history.append(f'"{standardized_proposal}"')
         self.reward_history.append(str(self.compute_rewards(standardized_proposal)))
 
         self.current_turn += 1
@@ -199,20 +209,23 @@ class NegotiationEnvironment():
         # Update the other agent's history as well - include original proposal
         self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s proposal: {standardized_proposal}')
 
-        print(f"Current Turn: {self.current_turn}")
-        print(f"Total Turns: {self.total_turns}")
+        if self.verbose:
+            print(f"Current Turn: {self.current_turn}")
+            print(f"Total Turns: {self.total_turns}")
 
         if self.current_turn >= self.total_turns or self.is_accepting(next_message):
             # game is over. log outputs and rewards
             self.proposal_history[-1] = "Accept"
             assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
-            to_log = []
+            to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
             for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
                 to_log.extend([item1, item2, item3])
-            to_log = "|".join(to_log)
-            with open(self.logfile, 'w', newline='') as f:
-                f.write(to_log)
+
+            with open(self.logfile, 'a') as f:
+                wr = csv.writer(f, quoting=csv.QUOTE_ALL)
+                wr.writerow(to_log)
                 f.write('\n')
+
             return(True)
         else:
             return(False)
