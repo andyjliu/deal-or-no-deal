@@ -5,8 +5,8 @@ import openai
 import pdb
 import csv
 from negotiation_environment import NegotiationEnvironment
-import matplotlib.pyplot as plt
 from pathlib import Path
+import plot
 
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
@@ -49,6 +49,7 @@ if __name__ == '__main__':
     results_dir = args.output
     os.makedirs(results_dir, exist_ok=True)
     logfile = Path(results_dir, 'log.csv')
+
     with open(logfile, 'w') as f:
         to_log = ['Item Quantities', 'A Values', 'B Values']
         cols = ['Message', 'Offer', 'Rewards']
@@ -74,3 +75,6 @@ if __name__ == '__main__':
             print(f'Completed Iteration {iter}')
         except AssertionError or openai.error.OpenAIError as e:
             print(f'Error {e} on Iteration {iter}')
+
+        plot.plot_welfare(env, results_dir)
+        plot.plot_fairness(env, results_dir)
