@@ -5,7 +5,6 @@ import openai
 import pdb
 import csv
 from negotiation_environment import NegotiationEnvironment
-import matplotlib.pyplot as plt
 from pathlib import Path
 
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
