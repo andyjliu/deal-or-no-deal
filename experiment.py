@@ -5,6 +5,9 @@ import openai
 import pdb
 import csv
 from negotiation_environment import NegotiationEnvironment
+import matplotlib.pyplot as plt
+from pathlib import Path
+
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
 def parse_args():
@@ -34,7 +37,7 @@ def parse_args():
     parser.add_argument('--hardcode-inventory', action=argparse.BooleanOptionalAction)
 
     # parser.add_argument('--seed', type=int, default=0, help='random seed for reproducibility')
-    parser.add_argument('--output', type=str, default=f'test_{time.strftime("%Y%m%d-%H%M%S")}.csv',
+    parser.add_argument('--output', type=str, default=f'results/test_{time.strftime("%Y%m%d-%H%M%S")}',
         help = 'Name of output csv')
     parser.add_argument('--verbose', action='store_true')
     args = parser.parse_args()
@@ -44,7 +47,10 @@ if __name__ == '__main__':
     args = parse_args()
 
     # init log file
-    with open(args.output, 'w') as f:
+    results_dir = args.output
+    os.makedirs(results_dir, exist_ok=True)
+    logfile = Path(results_dir, 'log.csv')
+    with open(logfile, 'w') as f:
         to_log = ['Item Quantities', 'A Values', 'B Values']
         cols = ['Message', 'Offer', 'Rewards']
         wr = csv.writer(f, quoting=csv.QUOTE_ALL)
@@ -54,7 +60,7 @@ if __name__ == '__main__':
         wr.writerow(to_log)
 
     for iter in range(args.num_iters):
-        env = NegotiationEnvironment(logfile=args.output, a_desc=args.a_desc, b_desc=args.b_desc,
+        env = NegotiationEnvironment(logfile=logfile, a_desc=args.a_desc, b_desc=args.b_desc,
                                a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
                                eval_model=args.eval_model,
                                agent_model=args.agent_model,
