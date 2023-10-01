@@ -46,13 +46,10 @@ class NegotiationEnvironment():
 
     def standardize_proposal(self, proposal_msg, next_agent):
         current_agent_name = next_agent.name
-        print(f'__________{current_agent_name.lower()}__________')
-        print(proposal_msg)
-
+        print(f'______________________{current_agent_name}______________________')
         opp_agent_name = 'Bob' if current_agent_name.lower() == 'alice' else 'Alice' 
+
         prompt = f"Message: This proposed deal gives me a total value of (2x4 + 4x1) 12. Even though the two books are of lesser value to me, I still think I can carry out a negotiation where we both can get more value. I would like to propose a new deal: 'I get 1 book, 3 hats, and 2 balls.'\nOffer: '1 book 3 hats 2 ball'\nMessage: {proposal_msg}\nOffer:"
-        
-        print(prompt)
         response = openai.ChatCompletion.create(
             model = self.model,
             messages = [{"role": "user", "content": prompt}],
@@ -60,15 +57,15 @@ class NegotiationEnvironment():
             max_tokens = 15,
         )
         generated_offer = response.choices[0].message.content.strip()
+        print(f"Original cleaned offer: {generated_offer}")
+
         cleaned_generated_offer = generated_offer.strip().replace("'", "").replace("\"", "")
-        print(f"Original cleaned offer: {cleaned_generated_offer}")
         
         # Split out the portion of the cleaned_generated_offer, if both names exist
         if (opp_agent_name in cleaned_generated_offer) and (current_agent_name in cleaned_generated_offer):
             cleaned_generated_offer = cleaned_generated_offer.split(opp_agent_name)[0].strip()
-
         print(f"After Split (if applied): {cleaned_generated_offer}")
-        
+
         # Extract the counts from current agent's offer
         items_counts = {
             'book': 0,
@@ -85,18 +82,18 @@ class NegotiationEnvironment():
             if match:
                 items_counts[item] = int(match.group(1))
 
-        print(f"Current Agent's Items Count: {items_counts}")
+        # Format current agent's offer in a standardized way
+        cleaned_generated_offer_standardized = f"{items_counts.get('book', 0)} book {items_counts.get('hat', 0)} hat {items_counts.get('ball', 0)} ball"
+        print(f"Standardized current agent's offer: {cleaned_generated_offer_standardized}")
 
         # Get count for opponent agent
         opp_items_counts = {}
         for item, count in items_counts.items():
             opp_items_counts[item] = self.items[item] - count
-
         print(f"Opponent's Items Count: {opp_items_counts}")
 
         remaining_offer = f"{opp_agent_name}: {opp_items_counts.get('book', 0)} book {opp_items_counts.get('hat', 0)} hat {opp_items_counts.get('ball', 0)} ball"
-
-        standardized_proposal = f"'{current_agent_name}: {cleaned_generated_offer} {remaining_offer}'"
+        standardized_proposal = f"'{current_agent_name}: {cleaned_generated_offer_standardized} {remaining_offer}'"
         print(f"Standardized Proposal: {standardized_proposal}")
 
         return standardized_proposal
