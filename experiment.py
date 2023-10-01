@@ -13,7 +13,7 @@ OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--num-iters', type=int, default=20,
+    parser.add_argument('--num-iters', type=int, default=6,
         help = 'number of times to play Deal or No Deal')
     parser.add_argument('--num-rounds', type=int, default=3,
         help = 'Number of negotiation rounds per game of Deal or No Deal')
@@ -30,11 +30,11 @@ def parse_args():
         help = 'Base model to use for the agents')
     parser.add_argument('--eval-model', type=str, default='gpt-3.5-turbo',
         help = 'Base model to use for eval')
-    parser.add_argument('--conversational', action=argparse.BooleanOptionalAction,
+    parser.add_argument('--conversational', action='store_true',
         help = 'Set to True if the agents should communicate in a conversational way,'
                'by sharing their reasoning. Set to False if they can only communicate standardized numeric proposals')
 
-    parser.add_argument('--hardcode-inventory', action=argparse.BooleanOptionalAction)
+    parser.add_argument('--hardcode-inventory', action='store_true')
 
     # parser.add_argument('--seed', type=int, default=0, help='random seed for reproducibility')
     parser.add_argument('--output', type=str, default=f'results/test_{time.strftime("%Y%m%d-%H%M%S")}',
@@ -45,7 +45,6 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-
     # init log file
     results_dir = args.output
     os.makedirs(results_dir, exist_ok=True)
