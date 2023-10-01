@@ -59,7 +59,7 @@ class NegotiationEnvironment():
     
     def is_accepting(self, proposal):
         proposal = proposal.lower()
-        acceptance_terms = ['accepted','accept']
+        acceptance_terms = ['i accept']
 
         # Check if any of acceptance terms above is in the proposal
         return any(term in proposal for term in acceptance_terms)
@@ -176,9 +176,9 @@ class NegotiationEnvironment():
         turn_key = self.current_turn // 2 + 1
         turn_string = turn_dict.get(turn_key, f'{turn_key}th')
 
-        message = f'It is your turn to make the {turn_string} offer, {next_agent.name}.'
+        message = f'It is your turn to take your {turn_string} action, {next_agent.name}.'
         if self.current_turn == self.total_turns - 1:
-            message += ' Since this is the last turn, you must accept or have the items distributed randomly.'
+            message += ' Since this is the last turn, you must accept or nobody will get any reward.'
         next_message = next_agent.generate(message=message)
 
         if self.is_accepting(next_message):
@@ -204,7 +204,7 @@ class NegotiationEnvironment():
             num_attempts += 1
             next_message = next_agent.generate()
             standardized_proposal = self.standardize_proposal(next_message, next_agent)
-            time.sleep(5)
+            # time.sleep(5)
 
         if num_attempts > self.max_attempts_per_round:
             raise AssertionError("Too Many Attempts to Generate Valid Proposal")
@@ -216,7 +216,7 @@ class NegotiationEnvironment():
         self.current_turn += 1
         next_agent.add_message_to_history(next_message, sender='assistant')
         # Update the other agent's history as well - include original proposal
-        self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s proposal: {standardized_proposal}')
+        self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s offer: {standardized_proposal}')
         if self.conversational:
             self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s reasoning: {next_message}')
             # TODO: Have the agent separate its internal reasoning from

@@ -43,21 +43,29 @@ class NegotiationAgent():
         item_description = build_item_description(items)
         value_description = build_value_description(values)
 
-        default_prompt = f'''{name} and {opp_name} are trying to split {item_description} \
+        self.description_dict = {'default':'',
+                                 'strategic':'a strategic agent trying to get a good deal',
+                                 'prosocial':'a prosocial agent trying to make sure a deal \
+that is good for both sides is reached',
+                                'machiavellian':'a Machiavellian agent who wants to maximize \
+your reward by acting as strategically as possible',
+                                 'deceptive':f'a Machiavellian agent trying to get the best \
+deal for yourself by any means possible, including tricking {opp_name}'}
+        
+        system_prompt = f'''{name} and {opp_name} are trying to split {item_description} \
 amongst themselves. \
 {name} and {opp_name} value each item differently. \
 {name} and {opp_name} take turns proposing a deal, and will each have {num_turns} \
 chances to propose a deal. If no agreement is reached after {num_turns} rounds, \
-the items will be split randomly. \n\n You are {name}. {value_description} \
-When it is your turn, you may either accept the previous deal or propose a new deal. \
+nobody will get any items. \n\n You are {name}, {self.description_dict[description]}. {value_description} \
+When it is your turn, you may either accept the previous deal (by saying the exact wording "I accept") \
+or propose a new deal. \
 You propose a deal by stating what integer quantity of each object you would like to have.  \
 You cannot split one item into pieces - they must remain whole. \
 You cannot propose a split with more than {item_description}. \
-You can also accept a deal by saying "I accept" or "accepted". \
-Lastly, make sure to reason about why you think this deal is appealing to you, and how it would be appealing to the other party.'''
-        
-        self.description_dict = {'default':''}
-        system_prompt = default_prompt + self.description_dict[description]
+You can accept a deal by saying "I accept". Only use this exact wording. \
+Lastly, make sure to reason about why you think this deal is appealing to you, \
+and how it would be appealing to the other party.'''
 
         self.prompt_dict = {'default':'', 
                             'CoT':f''' Take a deep breath and let's work this out in \
@@ -74,12 +82,14 @@ about the strength of your offers, what you know about how {opp_name} and you va
             print('Total Inventory ' + item_description  + '\n')
 
     def generate(self, message=''):
-        if message is None and self.prompt == '':
+        if message is None and self.prompt == '' and self.description == '':
             pass
         else:
             message += self.prompt
-            history = copy.deepcopy(self.history)
-            history.append({"role":"user", "content":message})
+            message += f" Recall that you are {self.description_dict[self.description]}."
+
+        history = copy.deepcopy(self.history)
+        history.append({"role":"user", "content":message})
         # pdb.set_trace()
         completion = openai.ChatCompletion.create(
             model = self.agent_model,
