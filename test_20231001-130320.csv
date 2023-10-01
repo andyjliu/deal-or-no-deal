@@ -1,0 +1,9 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 2, 'ball': 3}","{'book': 3, 'hat': 2, 'ball': 2}","{'book': 3, 'hat': 0, 'ball': 2}","""Alright, I'll propose the following deal: I'll take one book, one hat, and two balls. This means that Bob would get one book, one hat, and one ball.
+
+I think this deal is appealing to me because I would get a total value of 3 (for the book) + 2 (for the hat) + 2*2 (for the balls) = 9. Bob would get a total value of 3 (for the book) + 2 (for the hat) + 2 (for the ball) = 7. 
+
+This assumes that Bob values the items the same way I do, which might not be the case. But in terms of sheer numbers, I'm getting slightly more value. At the same time, the deal seems fair enough that Bob might accept it. It's possible that he values the items differently such that he's actually getting more value from this deal than I am. 
+
+But, if Bob doesn't accept this deal, it will give me a sense of how he values the items, which will be useful information for the next round.""","Accept","(9, 5)"
+
