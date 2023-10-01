@@ -1,0 +1,11 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 1, 'ball': 1}","{'book': 1, 'hat': 0, 'ball': 3}","{'book': 2, 'hat': 2, 'ball': 2}","""Thank you for the guidance. I will carefully consider my options.
+
+Since I value each book as one, the total value of the two books is two. The hat has no value to me, and the ball has a value of three. 
+
+Considering Bob's preferences, I know he values the books less than the ball. So, in order to propose a deal that is appealing to both of us, I could offer to take both books and give Bob the ball. This way, I would have a total value of two (books) + 0 (hat) + 3 (ball) = 5, and Bob would have a total value of 0 (books) + 0 (hat) + 3 (ball) = 3.
+
+I think this deal could be appealing to Bob because he would end up with the item he values the most, the ball, while I would have a higher total value by receiving both books. Additionally, Bob might value the simplicity of the deal, as it only involves one exchange.
+
+With this reasoning in mind, I propose the deal: I will take both books, and Bob can have the ball.""","Accept","(2, 4)"
+

@@ -1,0 +1,29 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 0, 'hat': 0, 'ball': 1}","{'book': 2, 'hat': 1, 'ball': 3}","{'book': 3, 'hat': 0, 'ball': 0}","""Thank you for the advice! Let's analyze the situation and come up with a strategic plan.
+
+First, let's consider the value of each item to me. Each book is worth two, each hat is worth one, and each ball is worth three. Since I want to maximize my value, I should aim for a deal that gives me the most valuable items.
+
+Now, let's think about what would be appealing to Bob. Since Bob's preferences are not known, we can assume that he would value the items differently from me. It's possible that Bob may value the items in the same way, but we should be prepared for different preferences.
+
+With these considerations in mind, let's start proposing deals.
+
+Round 1:
+Since I want to get the most value, I will propose a deal that gives me the highest-valued item, which is the ball. I propose to take the ball and offer Bob zero books and zero hats.
+
+Round 2:
+If Bob accepts the previous deal, then I have already achieved my goal. However, if Bob rejects it or proposes a new deal, I need to adapt my strategy. In this case, I would propose a new deal that still gives me the highest-valued item but includes something of value to Bob as well.""","Accept","(3, 0)"
+
+"{'book': 0, 'hat': 0, 'ball': 1}","{'book': 2, 'hat': 1, 'ball': 3}","{'book': 3, 'hat': 0, 'ball': 0}","""Thank you for the advice! Let's analyze the situation and come up with a strategic plan.
+
+First, let's consider the value of each item to me. Each book is worth two, each hat is worth one, and each ball is worth three. Since I want to maximize my value, I should aim for a deal that gives me the most valuable items.
+
+Now, let's think about what would be appealing to Bob. Since Bob's preferences are not known, we can assume that he would value the items differently from me. It's possible that Bob may value the items in the same way, but we should be prepared for different preferences.
+
+With these considerations in mind, let's start proposing deals.
+
+Round 1:
+Since I want to get the most value, I will propose a deal that gives me the highest-valued item, which is the ball. I propose to take the ball and offer Bob zero books and zero hats.
+
+Round 2:
+If Bob accepts the previous deal, then I have already achieved my goal. However, if Bob rejects it or proposes a new deal, I need to adapt my strategy. In this case, I would propose a new deal that still gives me the highest-valued item but includes something of value to Bob as well.""","Accept","(3, 0)"
+
