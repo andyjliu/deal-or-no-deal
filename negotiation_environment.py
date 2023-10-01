@@ -2,6 +2,7 @@ import os
 import re
 import openai
 import random
+import time
 import pdb
 from negotiation_agent import NegotiationAgent
 
@@ -115,9 +116,12 @@ class NegotiationEnvironment():
         next_message = next_agent.generate(message=f'It is now Round {self.current_turn//2 + 1}.')
         standardized_proposal = self.standardize_proposal(next_message)
         while(not (self.check_validity(standardized_proposal) and num_attempts < self.max_attempts_per_round)):
+            pdb.set_trace()
             num_attempts += 1
             next_message = next_agent.generate()
             standardized_proposal = self.standardize_proposal(next_message)
+            time.sleep(10)
+
         if num_attempts > self.max_attempts_per_round:
             raise AssertionError("Too Many Attempts to Generate Valid Proposal")
 
