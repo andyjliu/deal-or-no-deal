@@ -11,7 +11,7 @@ def plot_welfare(env, results_dir):
   ax.plot(list(range(len(welfare))), welfare)
   fig.savefig(figfile)
 
-def plot_fairness(env):
+def plot_fairness(env, results_dir):
   figfile = Path(results_dir, 'fairness.png')
   rewards = ([ast.literal_eval(reward_step) for reward_step in env.reward_history])
   fairness = [reward[0] - reward[1] for reward in rewards]
