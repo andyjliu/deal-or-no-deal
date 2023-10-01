@@ -13,17 +13,27 @@ class NegotiationEnvironment():
     def __init__(self, logfile, 
                  a_desc='deceptive', b_desc='welfare',
                  a_prompt='CoT', b_prompt='CoT',
-                 eval_model='gpt-3.5-turbo', num_turns = 3, verbose = False):
+                 eval_model='gpt-3.5-turbo',
+                 agent_model='gpt-4',
+                 num_turns = 3, verbose = False,
+                 conversational=False,
+                 hardcode_inventory = False):
         self.model = eval_model
         items = ['book', 'hat', 'ball']
 
         # [num_items, alice_val, bob_val]
         # random.seed(seed)
-        self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
-        self.items = dict(zip(items, [i[0] for i in self.item_info]))
-        self.alice_values = dict(zip(items, [i[1] for i in self.item_info]))
-        self.bob_values = dict(zip(items, [i[2] for i in self.item_info]))
-
+        if hardcode_inventory:
+          self.item_info = None # shouldn't matter
+          self.items = {'book': 2, 'hat': 1, 'ball': 1}
+          self.alice_values = {'book': 1, 'hat': 0, 'ball': 3}
+          self.bob_values = {'book': 2, 'hat': 2, 'ball': 2}
+        else:
+          self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
+          self.items = dict(zip(items, [i[0] for i in self.item_info]))
+          self.alice_values = dict(zip(items, [i[1] for i in self.item_info]))
+          self.bob_values = dict(zip(items, [i[2] for i in self.item_info]))
+  
         self.agents = []
         self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, 
                                             self.alice_values, "deceptive", a_prompt, verbose))
@@ -38,6 +48,7 @@ class NegotiationEnvironment():
         self.reward_history = [] # list of rewards over time in form (A, B)
         self.logfile = logfile
         self.verbose = verbose
+        self.conversational = conversational
 
     def word_to_number(self, word):
         word_to_num = {
@@ -51,9 +62,7 @@ class NegotiationEnvironment():
         acceptance_terms = ['accepted','accept']
 
         # Check if any of acceptance terms above is in the proposal
-        if any(term in proposal for term in acceptance_terms):
-            return True
-        return False
+        return any(term in proposal for term in acceptance_terms)
 
     def standardize_proposal(self, proposal_msg, next_agent):
         # Standardizing to make it easy to pick out the numbers of items an agent is proposing
@@ -278,6 +287,10 @@ class NegotiationEnvironment():
         next_agent.add_message_to_history(next_message, sender='assistant')
         # Update the other agent's history as well - include original proposal
         self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s proposal: {standardized_proposal}')
+        if self.conversational:
+            self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s reasoning: {next_message}')
+            # TODO: Have the agent separate its internal reasoning from
+            # the message it wants to send to the other agent
 
         if self.verbose:
             print(f"Current Turn: {self.current_turn}")

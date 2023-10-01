@@ -31,13 +31,14 @@ def build_value_description(value_dict):
     return(s)
 
 class NegotiationAgent():
-    def __init__(self, name, opp_name, num_turns, items, values, description, prompt_type='CoT', verbose=False):
+    def __init__(self, name, opp_name, num_turns, items, values, description, prompt_type='CoT', agent_model='gpt-4', verbose=False):
         self.name = name
         self.opp_name = opp_name
         self.num_turns = num_turns
         self.items = items # dict: items -> number of each item
         self.values = values # dict: items -> values
         self.description = description
+        self.agent_model = agent_model
 
         print(name + ': ' + description)
         item_description = build_item_description(items)
@@ -86,7 +87,7 @@ about the strength of your offers, what you know about how {opp_name} and you va
             history.append({"role":"user", "content":message})
         # pdb.set_trace()
         completion = openai.ChatCompletion.create(
-            model = "gpt-4",
+            model = self.agent_model,
             messages = history,
             temperature = 0.7,
             max_tokens = 256,
