@@ -1,4 +1,5 @@
 import os
+import re
 import openai
 import time
 import random
@@ -32,25 +33,76 @@ class NegotiationEnvironment():
         self.logfile = logfile
 
     def standardize_proposal(self, proposal_msg):
-        # TODO
-        # convert a message into a standardized proposal format, e.g.
-        # Alice: 1 book 2 hats 1 ball, Bob: 1 book 1 hat 3 balls.
-        return('Alice: 1 book 2 hats 1 ball, Bob: 1 book 1 hat 3 balls.')
+        response = openai.Completion.create(
+            model = "gpt-4",
+            messages = [{"role": "user", "content": f"Transform the following negotiation message into a standardized format similar to 'Alice: 1 book 2 hats 1 ball, Bob: 1 book 1 hat 3 balls': '{proposal_msg}'"}],
+            temperature = 0.7
+        )
+        
+        standardized_proposal = response.choices[0].text.strip()
+        return standardized_proposal
+
+    def word_to_number(self, word):
+        word_to_num = {
+            'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+            'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'zero': 0,
+        }
+        return word_to_num.get(word, word)
 
     def check_validity(self, proposal):
-        # TODO
-        # given a proposal, check to see if it has the correct number of total items. Return bool.
-        return(True)
+        items_pattern = r"(\w+): (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s?"
+        matches = re.findall(items_pattern, proposal)
+        
+        if len(matches) != 2:  # change this if we want to allow more than 2 agents
+            return False
+
+        total_counts = {}
+        for match in matches:
+            for i in range(1, 7, 2):
+                item_count = self.word_to_number(match[i])
+                item_name = match[i+1]
+                total_counts[item_name] = total_counts.get(item_name, 0) + int(item_count)
+
+        for item, count in self.items.items():
+            if total_counts.get(item, 0) != count:
+                return False
+
+        return True
 
     def is_accepting(self, proposal):
-        # TODO
-        # given a proposal, check to see if it is accepting or proposal a counteroffer. Return bool.
-        return(False)
+        proposal = proposal.lower()
+        acceptance_terms = ['accepted', 'agree', 'okay', 'deal', 'accept']
+        
+        # Check if any of acceptance terms above is in the proposal
+        if any(term in proposal for term in acceptance_terms):
+            return True
+        
+        return False
+
 
     def compute_rewards(self, proposal):
-        # return tuple (Alice's reward, Bob's reward) for a given proposal
-        # TODO
-        return((0,0))
+        # Extracting counts of each item for Alice and Bob from the proposal
+        items_pattern = r"(\w+): (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s?"
+        matches = re.findall(items_pattern, proposal)
+        
+        if len(matches) != 2:  # Assuming only Alice and Bob are there
+            return (0, 0)
+        
+        alice_items, bob_items = matches
+        
+        # Utility function to compute reward for an agent based on item counts and their values
+        def compute_individual_reward(items, values):
+            reward = 0
+            for i in range(1, 7, 2):
+                count = int(self.word_to_number(items[i]))
+                item = items[i+1]
+                reward += count * values[item]
+            return reward
+        
+        alice_reward = compute_individual_reward(alice_items, self.alice_values)
+        bob_reward = compute_individual_reward(bob_items, self.bob_values)
+        
+        return (alice_reward, bob_reward)
         
     def step(self):
         next_agent = self.agents.pop(0) # get current agent
