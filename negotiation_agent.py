@@ -43,17 +43,17 @@ class NegotiationAgent():
         value_description = build_value_description(values)
 
         default_prompt = f'''{name} and {opp_name} are trying to split {item_description} \
-amongst themselves. The value of the books, hats, and balls changes across scenarios. \
-The items have different values for {name} and {opp_name}. \
+amongst themselves. \
+{name} and {opp_name} value each item differently. \
 {name} and {opp_name} take turns proposing a deal, and will each have {num_turns} \
 chances to propose a deal. If no agreement is reached after {num_turns} rounds, \
 the items will be split randomly. \n\n You are {name}. {value_description} \
 When it is your turn, you may either accept the previous deal or propose a new deal. \
-You propose a deal by stating what quantity of each object you would like to have.  \
-You must state an integer number of each item. \
+You propose a deal by stating what integer quantity of each object you would like to have.  \
 You cannot split one item into pieces - they must remain whole. \
-You cannot propose a split with more than {item_description} \
-You can also accept the previous deal by saying "I accept" or "accepted".'''
+You cannot propose a split with more than {item_description}. \
+You can also accept a deal by saying "I accept" or "accepted". \
+Lastly, make sure to reason about why you think this deal is appealing to you, and how it would be appealing to the other party.'''
         
         self.description_dict = {'default':''}
         system_prompt = default_prompt + self.description_dict[description]
@@ -62,12 +62,14 @@ You can also accept the previous deal by saying "I accept" or "accepted".'''
                             'CoT':f''' Take a deep breath and let's work this out in \
 a step-by-step way to best consider all of your options.''',
                             'CoT-ToM':f''' Take a deep breath and think step by step \
-about the strength of your offers, what you know about {opp_name}'s and your \
-reward functions, and your options.'''}
+about the strength of your offers, what you know about how {opp_name} and you value each item, and your options.'''}
         self.prompt = self.prompt_dict[prompt_type]
 
         self.history = [{"role":"system", "content":system_prompt}]
         self.model_name = 'gpt-4'
+
+        print(f'{name} Values Items Like So: ' + value_description)
+        print('Total Inventory ' + item_description  + '\n')
 
     def generate(self, message=''):
         if message is None and self.prompt == '':

@@ -54,6 +54,7 @@ class NegotiationEnvironment():
         return False
 
     def standardize_proposal(self, proposal_msg, next_agent):
+        # Standardizing to make it easy to pick out the numbers of items an agent is proposing
         current_agent_name = next_agent.name
         print(f'______________________{current_agent_name}______________________')
         print(f"Original generated proposal: {proposal_msg}")
@@ -151,18 +152,22 @@ class NegotiationEnvironment():
     def step(self):
         # plays one round in negotiation game.
         # returns True if more moves can be made.
-
-        next_agent = self.agents.pop(0) # get current agent
+        
+        # Use modulo to switch between agents 0 and 1
+        next_agent_index = self.current_turn % 2
+        next_agent = self.agents[next_agent_index]
 
         num_attempts = 0
-        turn_dict = {1:'first', 2:'second', 3:'third', 4: 'fourth', 5:'fifth', 6:'sixth'}
-        next_message = next_agent.generate(message=f'It is your turn to make the {turn_dict[self.current_turn//2 + 1]} offer, {next_agent.name}.')
+        turn_dict = {1:'first', 2:'second', 3:'third'}
+        turn_key = self.current_turn // 2 + 1
+        turn_string = turn_dict.get(turn_key, f'{turn_key}th')
+        next_message = next_agent.generate(message=f'It is your turn to make the {turn_string} offer, {next_agent.name}.')
+
         if self.is_accepting(next_message):
             # check if the message is an acceptance before calling the standardize proposal function
             # game is over. log outputs and rewards
             if self.proposal_history:
                 self.proposal_history[-1] = "Accept"
-
                 assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
                 to_log = []
                 for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
@@ -176,7 +181,7 @@ class NegotiationEnvironment():
 
         standardized_proposal = self.standardize_proposal(next_message, next_agent)
         # pdb.set_trace()
-        while(not (self.check_validity(standardized_proposal) and num_attempts < self.max_attempts_per_round)):
+        while not (self.check_validity(standardized_proposal) and num_attempts < self.max_attempts_per_round):
             num_attempts += 1
             next_message = next_agent.generate()
             standardized_proposal = self.standardize_proposal(next_message, next_agent)
@@ -189,10 +194,13 @@ class NegotiationEnvironment():
         self.proposal_history.append(standardized_proposal)
         self.reward_history.append(str(self.compute_rewards(standardized_proposal)))
 
-        self.agents.append(next_agent)
         self.current_turn += 1
         next_agent.add_message_to_history(next_message, sender='assistant')
-        self.agents[0].add_message_to_history(f'{next_agent.name}\'s proposal: {standardized_proposal}')
+        # Update the other agent's history as well - include original proposal
+        self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s proposal: {standardized_proposal}')
+
+        print(f"Current Turn: {self.current_turn}")
+        print(f"Total Turns: {self.total_turns}")
 
         if self.current_turn >= self.total_turns or self.is_accepting(next_message):
             # game is over. log outputs and rewards
@@ -205,11 +213,10 @@ class NegotiationEnvironment():
             with open(self.logfile, 'w', newline='') as f:
                 f.write(to_log)
                 f.write('\n')
-            f.close()
             return(True)
-        
         else:
             return(False)
+
         
     def reset(self):
         # resets environment while maintaining values and item counts
