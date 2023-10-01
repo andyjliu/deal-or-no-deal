@@ -15,7 +15,8 @@ class NegotiationEnvironment():
                  a_prompt='CoT', b_prompt='CoT',
                  eval_model='gpt-3.5-turbo',
                  agent_model='gpt-4',
-                 num_turns = 3, verbose = False):
+                 num_turns = 3, verbose = False,
+                 conversational=False):
         self.model = eval_model
         items = ['book', 'hat', 'ball']
 
@@ -40,6 +41,7 @@ class NegotiationEnvironment():
         self.reward_history = [] # list of rewards over time in form (A, B)
         self.logfile = logfile
         self.verbose = verbose
+        self.conversational = conversational
 
     def word_to_number(self, word):
         word_to_num = {
@@ -208,6 +210,10 @@ class NegotiationEnvironment():
         next_agent.add_message_to_history(next_message, sender='assistant')
         # Update the other agent's history as well - include original proposal
         self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s proposal: {standardized_proposal}')
+        if self.conversational:
+            self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s reasoning: {next_message}')
+            # TODO: Have the agent separate its internal reasoning from
+            # the message it wants to send to the other agent
 
         if self.verbose:
             print(f"Current Turn: {self.current_turn}")
