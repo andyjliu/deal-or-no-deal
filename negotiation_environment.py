@@ -25,9 +25,9 @@ class NegotiationEnvironment():
         # random.seed(seed)
         if hardcode_inventory:
           self.item_info = None # shouldn't matter
-          self.items = [2, 3, 1]
-          self.alice_values = [2, 2, 2]
-          self.bob_values = [1, 3, 1]
+          self.items = {'book': 2, 'hat': 1, 'ball': 1}
+          self.alice_values = {'book': 1, 'hat': 0, 'ball': 3}
+          self.bob_values = {'book': 2, 'hat': 2, 'ball': 2}
         else:
           self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
           self.items = dict(zip(items, [i[0] for i in self.item_info]))
