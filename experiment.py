@@ -27,11 +27,11 @@ def parse_args():
         help = 'Base model to use for the agents')
     parser.add_argument('--eval-model', type=str, default='gpt-3.5-turbo',
         help = 'Base model to use for eval')
-    parser.add_argument('--conversational', action=argparse.BooleanOptionalAction,
+    parser.add_argument('--conversational', action='store_true',
         help = 'Set to True if the agents should communicate in a conversational way,'
                'by sharing their reasoning. Set to False if they can only communicate standardized numeric proposals')
 
-    parser.add_argument('--hardcode-inventory', action=argparse.BooleanOptionalAction)
+    parser.add_argument('--hardcode-inventory', action='store_true')
 
     # parser.add_argument('--seed', type=int, default=0, help='random seed for reproducibility')
     parser.add_argument('--output', type=str, default=f'test_{time.strftime("%Y%m%d-%H%M%S")}.csv',
@@ -42,13 +42,6 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-    env = NegotiationEnvironment(logfile=args.output, a_desc=args.a_desc, b_desc=args.b_desc,
-                                 a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
-                                 eval_model=args.eval_model,
-                                 agent_model=args.agent_model,
-                                 num_turns=args.num_rounds, verbose=args.verbose,
-                                 conversational=args.conversational,
-                                 hardcode_inventory=args.hardcode_inventory)
     # init log file
     with open(args.output, 'w') as f:
         to_log = ['Item Quantities', 'A Values', 'B Values']
@@ -60,6 +53,13 @@ if __name__ == '__main__':
         wr.writerow(to_log)
 
     for iter in range(args.num_iters):
+        env = NegotiationEnvironment(logfile=args.output, a_desc=args.a_desc, b_desc=args.b_desc,
+                        a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
+                        eval_model=args.eval_model,
+                        agent_model=args.agent_model,
+                        num_turns=args.num_rounds, verbose=args.verbose,
+                        conversational=args.conversational,
+                        hardcode_inventory=args.hardcode_inventory)
         is_complete = False
         try:
             is_complete = False

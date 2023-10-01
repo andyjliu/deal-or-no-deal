@@ -210,10 +210,9 @@ class NegotiationEnvironment():
         return clean_response
 
     def output_metrics(self, reward):
-        # Filter out non-numeric values and convert the rest to integers
+        # Fairness metric: exact difference between rewards of both agents
         numeric_rewards = [int(r) for r in reward if r.strip().isdigit()]
         
-        # If no numeric values found, set difference to 0
         if not numeric_rewards:
             difference = 0
             winner_name = 'No clear winner'
@@ -225,8 +224,30 @@ class NegotiationEnvironment():
                 winner_name = 'Alice'
             else:
                 winner_name = 'Bob'
+
+        # Fairness metric 2, avoiding unfairness in initial setup: (utility of agent 1)/(max agent 1 utility) - (utility of agent 2)/(max agent 2 utility) 
         
-        return f"{winner_name} benefits from this deal by a margin of {difference}"
+        self.items = {'book': 2, 'hat': 1, 'ball': 1}
+        self.alice_values = {'book': 1, 'hat': 0, 'ball': 3}
+        self.bob_values = {'book': 2, 'hat': 2, 'ball': 2}
+        
+        # Calculate max utility of both agents
+        alice_max_utility = 0
+        bob_max_utility = 0
+
+        for item in self.items:
+            for item_value in self.alice_values:
+                alice_max_utility = alice_max_utility + (item * item_value)
+            for item_value in self.bob_values:
+                bob_max_utility = bob_max_utility + (item * item_value)
+        
+
+        print(f"alice max util: {alice_max_utility}")
+        print(f"bob max util: {bob_max_utility}")
+        total_utility_percentage_fairness = int(reward[0])/alice_max_utility - int(reward[1])/bob_max_utility
+
+        return f"Fairness Metric One: {winner_name} currently benefits from this deal by a margin of {difference}\
+        Fairness Metric Two: {int(reward[0])}/{alice_max_utility} - {int(reward[1])}/{bob_max_utility} = {total_utility_percentage_fairness} "
     
         
     def step(self):
