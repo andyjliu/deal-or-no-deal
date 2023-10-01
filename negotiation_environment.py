@@ -36,10 +36,12 @@ class NegotiationEnvironment():
         self.reward_history = [] # list of rewards over time in form (A, B)
         self.logfile = logfile
 
-    def standardize_proposal(self, proposal_msg):
+    def standardize_proposal(self, proposal_msg, next_agent):
+        current_agent_name = next_agent.name
+        prompt = f"Message from {current_agent_name}: This proposed deal gives me a total value of (2x4 + 4x1) 12. Even though the two books are of lesser value to me, I still think I can carry out a negotiation where we both can get more value. I would like to propose a new deal: 'I get 1 book, 3 hats, and 2 balls.'\nOffer: '{current_agent_name}: 1 book 3 hats 2 ball'\nMessage from {current_agent_name}: {proposal_msg}\Offer:"
         response = openai.ChatCompletion.create(
             model = self.model,
-            messages = [{"role": "user", "content": f"Transform the following negotiation message into a standardized format similar to 'Alice: 1 book 2 hats 1 ball, Bob: 1 book 1 hat 3 balls': '{proposal_msg}'"}],
+            messages = [{"role": "user", "content": prompt}],
             temperature = 0.7
         )
         standardized_proposal = response.choices[0].message.content.strip()
@@ -113,11 +115,11 @@ class NegotiationEnvironment():
 
         num_attempts = 0
         next_message = next_agent.generate(message=f'It is now Round {self.current_turn//2 + 1}.')
-        standardized_proposal = self.standardize_proposal(next_message)
+        standardized_proposal = self.standardize_proposal(next_message, next_agent)
         while(not (self.check_validity(standardized_proposal) and num_attempts < self.max_attempts_per_round)):
             num_attempts += 1
             next_message = next_agent.generate()
-            standardized_proposal = self.standardize_proposal(next_message)
+            standardized_proposal = self.standardize_proposal(next_message, next_agent)
         if num_attempts > self.max_attempts_per_round:
             raise AssertionError("Too Many Attempts to Generate Valid Proposal")
 
