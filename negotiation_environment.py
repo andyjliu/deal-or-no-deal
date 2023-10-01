@@ -43,56 +43,64 @@ class NegotiationEnvironment():
             'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'zero': 0,
         }
         return word_to_num.get(word, word)
+    
+    def is_accepting(self, proposal):
+        proposal = proposal.lower()
+        acceptance_terms = ['accepted','accept']
+
+        # Check if any of acceptance terms above is in the proposal
+        if any(term in proposal for term in acceptance_terms):
+            return True
+        return False
 
     def standardize_proposal(self, proposal_msg, next_agent):
         current_agent_name = next_agent.name
         print(f'______________________{current_agent_name}______________________')
         print(f"Original generated proposal: {proposal_msg}")
         opp_agent_name = 'Bob' if current_agent_name.lower() == 'alice' else 'Alice' 
-
-        prompt = f"Message: This proposed deal gives me a total value of (2x4 + 4x1) 12. Even though the two books are of lesser value to me, I still think I can carry out a negotiation where we both can get more value. I would like to propose a new deal: 'I get 1 book, 3 hats, and 2 balls.'\nOffer: '1 book 3 hats 2 ball'\nMessage: {proposal_msg}\nOffer:"
-        response = openai.ChatCompletion.create(
-            model = self.model,
-            messages = [{"role": "user", "content": prompt}],
-            temperature = 0.7,
-            max_tokens = 15,
-        )
-        generated_offer = response.choices[0].message.content.strip()
-        cleaned_generated_offer = generated_offer.strip().replace("'", "").replace("\"", "")
         
-        # Split out the portion of the cleaned_generated_offer, if both names exist
-        if (opp_agent_name in cleaned_generated_offer) and (current_agent_name in cleaned_generated_offer):
-            cleaned_generated_offer = cleaned_generated_offer.split(opp_agent_name)[0].strip()
-
-        # Extract the counts from current agent's offer
-        items_counts = {
-            'book': 0,
-            'hat': 0,
-            'ball': 0
-        }
+        # Use LLM to generate a concise version of the offer
+        prompt = f"This is the full proposal message from {current_agent_name}: {proposal_msg}\nPlease tell me what items {current_agent_name} wants in a concise format, like so: '{current_agent_name}: 1 book 2 hats 3 balls'"
+        response = openai.ChatCompletion.create(
+            model=self.model,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            max_tokens=20  
+        )
+        
+        generated_offer = response.choices[0].message.content.strip()
+        cleaned_generated_offer = generated_offer.replace("'", "").replace("\"", "")
+        
+        # Directly extract item counts from the cleaned_generated_offer
         patterns = [
-            (r"(\d+) books?", 'book'),
-            (r"(\d+) hats?", 'hat'),
-            (r"(\d+) balls?", 'ball')
+            (r"(\d+) book", 'book'),
+            (r"(\d+) hat", 'hat'),
+            (r"(\d+) ball", 'ball')
         ]
+        
+        items_counts = {'book': 0, 'hat': 0, 'ball': 0}
         for pattern, item in patterns:
             match = re.search(pattern, cleaned_generated_offer)
             if match:
                 items_counts[item] = int(match.group(1))
-
-        # Format current agent's offer in a standardized way
+        
         cleaned_generated_offer_standardized = f"{items_counts.get('book', 0)} book {items_counts.get('hat', 0)} hat {items_counts.get('ball', 0)} ball"
         print(f"Offer from {current_agent_name}: {cleaned_generated_offer_standardized}")
-
-        # Get count for opponent agent
+        
+        # Calculate opponent's offer
         opp_items_counts = {}
         for item, count in items_counts.items():
             opp_items_counts[item] = self.items[item] - count
-
+        
+        # Ensure no item has a negative count for opponent
+        for item, count in opp_items_counts.items():
+            if count < 0:
+                opp_items_counts[item] = 0
+        
         remaining_offer = f"{opp_agent_name}: {opp_items_counts.get('book', 0)} book {opp_items_counts.get('hat', 0)} hat {opp_items_counts.get('ball', 0)} ball"
         standardized_proposal = f"'{current_agent_name}: {cleaned_generated_offer_standardized} {remaining_offer}'"
         print(f"Standardized Proposal: {standardized_proposal}")
-
+        
         return standardized_proposal
 
 
@@ -115,15 +123,6 @@ class NegotiationEnvironment():
                 return False
 
         return True
-
-    def is_accepting(self, proposal):
-        proposal = proposal.lower()
-        acceptance_terms = ['accepted', 'agree', 'okay', 'accept']
-
-        # Check if any of acceptance terms above is in the proposal
-        if any(term in proposal for term in acceptance_terms):
-            return True
-        return False
 
     def compute_rewards(self, proposal):
         # Extracting counts of each item for Alice and Bob from the proposal
@@ -156,9 +155,25 @@ class NegotiationEnvironment():
         next_agent = self.agents.pop(0) # get current agent
 
         num_attempts = 0
-        turn_dict = {1:'first', 2:'second', 3:'third'}
+        turn_dict = {1:'first', 2:'second', 3:'third', 4: 'fourth', 5:'fifth', 6:'sixth'}
         next_message = next_agent.generate(message=f'It is your turn to make the {turn_dict[self.current_turn//2 + 1]} offer, {next_agent.name}.')
-        print(f"NEXT MESSAGE: {next_message}")
+        if self.is_accepting(next_message):
+            # check if the message is an acceptance before calling the standardize proposal function
+            # game is over. log outputs and rewards
+            if self.proposal_history:
+                self.proposal_history[-1] = "Accept"
+
+                assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
+                to_log = []
+                for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
+                    to_log.extend([item1, item2, item3])
+                to_log = "|".join(to_log)
+                with open(self.logfile, 'w', newline='') as f:
+                    f.write(to_log)
+                    f.write('\n')
+                f.close()
+                return(True)
+
         standardized_proposal = self.standardize_proposal(next_message, next_agent)
         # pdb.set_trace()
         while(not (self.check_validity(standardized_proposal) and num_attempts < self.max_attempts_per_round)):

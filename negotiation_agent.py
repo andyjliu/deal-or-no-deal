@@ -51,7 +51,9 @@ the items will be split randomly. \n\n You are {name}. {value_description} \
 When it is your turn, you may either accept the previous deal or propose a new deal. \
 You propose a deal by stating what quantity of each object you would like to have.  \
 You must state an integer number of each item. \
-You cannot propose a split with more than {item_description}'''
+You cannot split one item into pieces - they must remain whole. \
+You cannot propose a split with more than {item_description} \
+You can also accept the previous deal by saying "I accept" or "accepted".'''
         
         self.description_dict = {'default':''}
         system_prompt = default_prompt + self.description_dict[description]
@@ -79,7 +81,7 @@ reward functions, and your options.'''}
             model = "gpt-4",
             messages = history,
             temperature = 0.7,
-            max_tokens = 4096
+            max_tokens = 256,
         )
         return(completion.choices[0].message.content)
 
