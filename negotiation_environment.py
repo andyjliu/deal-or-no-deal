@@ -83,7 +83,7 @@ class NegotiationEnvironment():
 
     def compute_rewards(self, proposal):
         # Extracting counts of each item for Alice and Bob from the proposal
-        items_pattern = r"(\w+): (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s? (\w+|\d+) (book|ball|hat)s?"
+        items_pattern = r"(\w+): (\w+|\d+) (book|ball|hat)s?,?\s*(\w+|\d+) (book|ball|hat)s?,?\s*(\w+|\d+) (book|ball|hat)s?"
         matches = re.findall(items_pattern, proposal)
 
         if len(matches) != 2:  # Assuming only Alice and Bob are there
