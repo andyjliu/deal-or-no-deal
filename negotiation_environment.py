@@ -121,7 +121,7 @@ class NegotiationEnvironment():
 
     def is_accepting(self, proposal):
         proposal = proposal.lower()
-        acceptance_terms = ['accepted', 'agree', 'okay', 'deal', 'accept']
+        acceptance_terms = ['accepted', 'agree', 'okay', 'accept']
 
         # Check if any of acceptance terms above is in the proposal
         if any(term in proposal for term in acceptance_terms):
@@ -159,47 +159,45 @@ class NegotiationEnvironment():
         next_agent = self.agents.pop(0) # get current agent
 
         num_attempts = 0
-        next_message = next_agent.generate(message=f'It is now Round {self.current_turn//2 + 1}.')
+        turn_dict = {1:'first', 2:'second', 3:'third'}
+        next_message = next_agent.generate(message=f'It is your turn to make the {turn_dict[self.current_turn//2 + 1]} offer, {next_agent.name}.')
+        print(f"NEXT MESSAGE: {next_message}")
         standardized_proposal = self.standardize_proposal(next_message, next_agent)
+        # pdb.set_trace()
         while(not (self.check_validity(standardized_proposal) and num_attempts < self.max_attempts_per_round)):
-            pdb.set_trace()
             num_attempts += 1
             next_message = next_agent.generate()
-            standardized_proposal = self.standardize_proposal(next_message)
-            time.sleep(10)
+            standardized_proposal = self.standardize_proposal(next_message, next_agent)
+            time.sleep(5)
 
         if num_attempts > self.max_attempts_per_round:
             raise AssertionError("Too Many Attempts to Generate Valid Proposal")
 
         self.message_history.append(next_message)
         self.proposal_history.append(standardized_proposal)
-        self.reward_history.append(self.compute_rewards(standardized_proposal))
+        self.reward_history.append(str(self.compute_rewards(standardized_proposal)))
 
         self.agents.append(next_agent)
         self.current_turn += 1
         next_agent.add_message_to_history(next_message, sender='assistant')
         self.agents[0].add_message_to_history(f'{next_agent.name}\'s proposal: {standardized_proposal}')
 
-        if self.current_turn >= self.total_turns or self.is_accepting(standardized_proposal):
+        if self.current_turn >= self.total_turns or self.is_accepting(next_message):
             # game is over. log outputs and rewards
-            to_log = ''
+            self.proposal_history[-1] = "Accept"
             assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
-            for turn in range(len(self.message_history)):
-                to_log += f'"{self.message_history[turn]},"'
-                to_log += f'"{self.proposal_history[turn]},"'
-                to_log += f'"{self.reward_history[turn]},"'
-            # fill remaining columns (should be 18 total: 3 per turn for 6 turns)
-            to_log += " ,"*(3*(self.total_turns - len(self.message_history)))
-            # get rid of last comma and format
-            to_log = to_log[:-1] 
-            to_log += "\n"
-            with open(self.logfile, 'w') as f:
+            to_log = []
+            for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
+                to_log.extend([item1, item2, item3])
+            to_log = "|".join(to_log)
+            with open(self.logfile, 'w', newline='') as f:
                 f.write(to_log)
+                f.write('\n')
             f.close()
-            return(False)
+            return(True)
         
         else:
-            return(True)
+            return(False)
         
     def reset(self):
         # resets environment while maintaining values and item counts

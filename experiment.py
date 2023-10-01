@@ -2,6 +2,7 @@ import argparse
 import time
 import os
 import openai
+import pdb
 from negotiation_environment import NegotiationEnvironment
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
@@ -32,7 +33,7 @@ if __name__ == '__main__':
     args = parse_args()
     env = NegotiationEnvironment(logfile=args.output, a_desc=args.a_desc, b_desc=args.b_desc,
                                  a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
-                                 eval_model='gpt-3.5-turbo', num_turns=3, seed=args.seed)
+                                 eval_model='gpt-3.5-turbo', num_turns=args.num_rounds, seed=args.seed)
     for iter in range(args.num_iters):
         is_complete = False
         try:
