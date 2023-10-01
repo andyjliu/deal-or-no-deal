@@ -27,7 +27,7 @@ def parse_args():
         help = 'Base model to use for the agents')
     parser.add_argument('--eval-model', type=str, default='gpt-3.5-turbo',
         help = 'Base model to use for eval')
-    parser.add_argument('--conversational', type=bool, default=False,
+    parser.add_argument('--conversational', action=argparse.BooleanOptionalAction,
         help = 'Set to True if the agents should communicate in a conversational way,'
                'by sharing their reasoning. Set to False if they can only communicate standardized numeric proposals')
 
