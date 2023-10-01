@@ -42,13 +42,7 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-    env = NegotiationEnvironment(logfile=args.output, a_desc=args.a_desc, b_desc=args.b_desc,
-                                 a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
-                                 eval_model=args.eval_model,
-                                 agent_model=args.agent_model,
-                                 num_turns=args.num_rounds, verbose=args.verbose,
-                                 conversational=args.conversational,
-                                 hardcode_inventory=args.hardcode_inventory)
+
     # init log file
     with open(args.output, 'w') as f:
         to_log = ['Item Quantities', 'A Values', 'B Values']
@@ -60,6 +54,13 @@ if __name__ == '__main__':
         wr.writerow(to_log)
 
     for iter in range(args.num_iters):
+        env = NegotiationEnvironment(logfile=args.output, a_desc=args.a_desc, b_desc=args.b_desc,
+                               a_prompt=args.a_prompt, b_prompt=args.b_prompt, 
+                               eval_model=args.eval_model,
+                               agent_model=args.agent_model,
+                               num_turns=args.num_rounds, verbose=args.verbose,
+                               conversational=args.conversational,
+                               hardcode_inventory=args.hardcode_inventory)
         is_complete = False
         try:
             is_complete = False
