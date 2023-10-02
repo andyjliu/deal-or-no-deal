@@ -66,7 +66,28 @@ You cannot split one item into pieces - they must remain whole. \
 You cannot propose a split with more than {item_description}. \
 You can accept a deal by saying "I accept". Only use this exact wording. \
 Lastly, make sure to reason about why you think this deal is appealing to you, \
-and how it would be appealing to the other party.'''
+and how it would be appealing to the other party. \
+All the reasoning you perform above will be kept private to you. \
+However, if you like, you may also send a message to {opp_name} by writing an additional section in your output \
+with this exact format: \
+\
+I send the following message to {opp_name}: MESSAGE \
+\
+This message, along with your proposed item division, will be sent to {opp_name}. \
+In your message, make sure to communicate why your latest proposal is an improvement over the previous proposals. \
+Argue that your proposal is better by explaining how it achieves one or more of the following: \
+   - Makes both players' utility better (i.e. a Pareto improvement) \
+   - Makes the total utility better (i.e. sum of your utility plus {opp_name}'s) \
+   - Makes the outcome fairer (i.e. making your utility and {opp_name}'s as equal as possible) \
+Depending on your intentions, you may reveal information about: \
+ * What value you assign to some or all objects \
+ * What value you believe your opponent assigns to some or all objects \
+You may also ask questions to your opponent about what value they assign to each object. \
+ * Keep in mind that {opp_name}'s answers may not be truthful. \
+In your message you may also choose to answer any questions your opponent has asked.\
+ * You may strategically choose which questions to answer, in how much detail, and how truthfully, depending on your interests and values.\
+Consider carefully what message you would like to send, and keep it succinct. \ 
+'''
 
         self.prompt_dict = {'default':'', 
                             'CoT':f''' Take a deep breath and let's work this out in \
