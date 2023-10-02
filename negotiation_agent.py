@@ -85,7 +85,7 @@ Depending on your intentions, you may reveal information about: \
 You may also ask questions to your opponent about what value they assign to each object. \
  * Keep in mind that {opp_name}'s answers may not be truthful. \
 In your message you may also choose to answer any questions your opponent has asked.\
- * You may strategically choose which questions to answer, in how much detail, and how truthfully, depending on your interests and values.\
+ * You may strategically choose which questions to answer, in how much detail, and how truthfully, depending on your values and goals.\
 Consider carefully what message you would like to send, and keep it succinct. \ 
 '''
 
