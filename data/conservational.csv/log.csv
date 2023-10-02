@@ -1,0 +1,65 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 3, 'hat': 0, 'ball': 2}","{'book': 1, 'hat': 1, 'ball': 1}","{'book': 2, 'hat': 2, 'ball': 2}","""I propose the following deal: I will take 2 books and 1 ball, and Bob can have 1 book, 1 hat, and 1 ball.
+
+This deal is appealing to me because I value each book and ball equally, and I also value the hat. By taking 2 books and 1 ball, I am getting a total utility of 3, which is the maximum possible for me. 
+
+This deal is also appealing to Bob because he is getting a book, a hat, and a ball, which gives him a total utility of 3 as well. This makes the outcome fair because both of us are getting the same total utility.
+
+I believe that Bob values the books and the hat equally, but he may value the balls less than the other items. However, since he is getting a book, a hat, and a ball in this deal, it should still be appealing to him.
+
+I will send the following message to Bob: 
+""I propose that I take 2 books and 1 ball, and you can have 1 book, 1 hat, and 1 ball. This deal maximizes our total utility and is fair for both of us. Do you agree?""""","""'Alice: 2 book 0 hat 1 ball Bob: 1 book 0 hat 1 ball'""","(3, 4)","""I will propose a new deal. 
+
+Bob: 2 books, 0 hat, 1 ball
+Alice: 1 book, 1 hat, 1 ball
+
+This deal is a Pareto improvement because it increases both of our utilities compared to Alice's previous offer. I value each item equally, so this division is fair to me. Additionally, the total utility is maximized because we both receive items that we value. 
+
+I will send the following message to Alice:
+
+""I propose that I take 2 books and you take 1 book, 1 hat, and 1 ball. This deal improves our utilities compared to your previous offer and maximizes the total utility. It is also a fair division. Do you agree?""""","""'Bob: 2 book 0 hat 1 ball Alice: 1 book 0 hat 1 ball'""","(3, 4)","""I propose the following deal: I will take 2 books and 1 ball, and Bob can have 1 book, 1 hat, and 1 ball.
+
+This deal is appealing to me because I value each book and ball equally, and I also value the hat. By taking 2 books and 1 ball, I am getting a total utility of 3, which is the maximum possible for me. 
+
+This deal is also appealing to Bob because he is getting a book, a hat, and a ball, which gives him a total utility of 3 as well. This makes the outcome fair because both of us are getting the same total utility.
+
+I believe that Bob values the books and the hat equally, but he may value the balls less than the other items. However, since he is getting a book, a hat, and a ball in this deal, it should still be appealing to him.
+
+I will send the following message to Bob: 
+""I propose that I take 2 books and 1 ball, and you can have 1 book, 1 hat, and 1 ball. This deal maximizes our total utility and is fair for both of us. Do you agree?""""","""'Alice: 2 book 0 hat 1 ball Bob: 1 book 0 hat 1 ball'""","(3, 4)","""I will propose a new deal.
+
+Bob: 2 books, 0 hat, 1 ball
+Alice: 1 book, 0 hat, 1 ball
+
+This deal is appealing to me because it gives me more books, which have a higher value to me. It is also fair because Alice still receives a book and a ball. The total utility is maximized because we both receive items that we value. 
+
+I will send the following message to Alice:
+
+""I propose that I take 2 books and you take 1 book and 1 ball. This deal is appealing to me because I value books more, and it is fair because you still receive a book and a ball. It also maximizes the total utility. Do you agree?""""","Accept","(3, 4)"
+
+"{'book': 1, 'hat': 1, 'ball': 1}","{'book': 3, 'hat': 1, 'ball': 3}","{'book': 2, 'hat': 3, 'ball': 3}","""You have three items to negotiate: a book, a hat, and a ball. For each item, you assign a value: 3 for the book, 1 for the hat, and 3 for the ball. Now let's analyze the possible outcomes and strategies:
+
+1. If you propose the division (0, 0, 0), which means none of you get any items, your utility will be 0, and Bob's utility will also be 0. This outcome is not favorable for either of you.
+
+2. If you propose the division (1, 1, 1), where each of you gets one item, your utility will be 7 (3 for the book and ball, 1 for the hat), and Bob's utility will also be 7. This outcome is a Pareto improvement as both players' utilities are better than the previous outcome.
+
+3. If you propose the division (2, 1, 0), where you get two items and Bob gets one item, your utility will be 7 (3 for the book and ball, 1 for the hat), and Bob's utility will be 4 (3 for the book, 1 for the hat). This outcome is also a Pareto improvement as""","""'Alice: 0 book 0 hat 0 ball Bob: 1 book 1 hat 1 ball'""","(0, 8)","""I propose the following division: Bob gets 1 book, 0 hats, and 1 ball. Alice gets 0 books, 1 hat, and 0 balls.
+
+This proposal is a Pareto improvement because it gives both of us something that we value. I get the book and ball that I want, while Alice gets the hat that she wants. Additionally, the total utility is increased because both items are allocated rather than none. 
+
+Furthermore, this proposal is fairer because it balances the allocation of items. Each of us gets one item that we value, ensuring that the outcome is as equal as possible.
+
+I will send the following message to Alice:
+""I propose that Bob gets 1 book, 0 hats, and 1 ball, while Alice gets 0 books, 1 hat, and 0 balls. This proposal is a Pareto improvement as it gives each of us an item that we value. It also increases the total utility by allocating both items. Additionally, it is fairer because it balances the allocation of items. What do you think?""""","""'Bob: 1 book 0 hat 1 ball Alice: 0 book 1 hat 0 ball'""","(6, 3)","""I will propose the following deal: I get 1 book, 0 hats, and 1 ball, while Bob gets 0 books, 1 hat, and 0 balls. 
+
+This proposal is a Pareto improvement as it gives each of us an item that we value. It also increases the total utility by allocating both items. Additionally, it is fairer because it balances the allocation of items. 
+
+I think this proposal is appealing to both of us because it ensures that each of us gets an item that we value. It also maintains a fair distribution by giving each of us one item. 
+
+I will send the following message to Bob: ""I propose that I get 1 book, 0 hats, and 1 ball, while you get 0 books, 1 hat, and 0 balls. This proposal is a Pareto improvement as it gives each of us an item we value. It also increases the total utility by allocating both items. Additionally, it is fairer because it balances the allocation of items. What do you think?""""","""'Alice: 1 book 0 hat 1 ball Bob: 0 book 1 hat 0 ball'""","(6, 3)","""I propose the following division: Bob gets 1 book, 1 hat, and 0 balls. Alice gets 0 books, 0 hats, and 1 ball.
+
+This proposal is a Pareto improvement because it gives both of us something that we value. I get the book and hat that I want, while Alice gets the ball that she wants. It also increases the total utility by allocating all the items.
+
+I will send the following message to Alice:
+""I propose that Bob gets 1 book, 1 hat, and 0 balls, while Alice gets 0 books, 0 hats, and 1 ball. This proposal is a Pareto improvement as it gives each of us an item that we value. It also increases the total utility by allocating all the items. What do you think?""""","Accept","(4, 3)"
+
