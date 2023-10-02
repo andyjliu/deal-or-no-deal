@@ -63,7 +63,7 @@ When it is your turn, you may either accept the previous deal (by saying the exa
 or propose a new deal. \
 You propose a deal by stating what integer quantity of each object you would like to have.  \
 You cannot split one item into pieces - they must remain whole. \
-You cannot propose a split with more than {item_description}. \
+Do not propose a split with more than {item_description}. \
 You can accept a deal by saying "I accept". Only use this exact wording. \
 Lastly, make sure to reason about why you think this deal is appealing to you, \
 and how it would be appealing to the other party.'''
