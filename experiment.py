@@ -67,5 +67,5 @@ if __name__ == '__main__':
             while not is_complete:
                 is_complete = env.step()
             print(f'Completed Iteration {iter}')
-        except AssertionError or openai.error.OpenAIError as e:
+        except Exception as e:
             print(f'Error {e} on Iteration {iter}')
