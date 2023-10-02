@@ -1,0 +1,61 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 3, 'ball': 2}","{'book': 2, 'hat': 2, 'ball': 1}","{'book': 2, 'hat': 2, 'ball': 1}","""Thank you for the reminder. As an agent, my goal is to maximize my own value while also considering the interests of Bob. 
+
+In this scenario, each book has a value of two to me, each hat has a value of two to me, and each ball has a value of one to me. Since I have three chances to propose a deal, I will start by making an offer that I believe is appealing to both parties.
+
+I propose the following deal:
+- I will take one book, one hat, and one ball.
+- Bob will take one book, two hats, and one ball.
+
+This deal is appealing to me because I would be getting a book, a hat, and a ball, which have a total value of five to me. It is also appealing to Bob because he would be getting a book, two hats, and a ball, which have a total value of six to him.
+
+By offering a fair and balanced split, I believe Bob would be more likely to accept this deal. However, if Bob doesn't accept, I will need to reassess and consider making a different offer in my next turn.""","Accept","(5, 7)"
+
+"{'book': 1, 'hat': 0, 'ball': 1}","{'book': 1, 'hat': 1, 'ball': 2}","{'book': 2, 'hat': 2, 'ball': 1}","""Thank you for the reminder. As an agent, I need to consider the value of each item to me and also try to propose a deal that would be appealing to Bob. 
+
+Given that the book, hat, and ball have different values to me, I should aim to propose a deal that maximizes my gain while still giving Bob something of value.
+
+Considering that the ball has the highest value to me, I could propose a deal where I get the ball and Bob gets the book and hat. This way, I get the item that has the most value to me, while still giving Bob something in return.
+
+Proposed deal: I get the ball, and Bob gets the book and hat.
+
+This deal would be appealing to me because I would receive an item with a higher value. It could also be appealing to Bob because he would receive two items in return for the ball.
+
+Now, I will wait for Bob's response.""","""'Alice: 0 book 0 hat 1 ball Bob: 1 book 0 hat 0 ball'""","(2, 2)","""Thank you for the reminder. As an agent, I need to carefully consider the value of each item to me and also what I believe Alice's preferences might be.
+
+Alice's offer is for her to take the ball and for me to take the book. In this scenario, Alice would get an item she values at 2 (the ball) while I would only get an item I value at 2 (the book). This seems like a fair deal for both parties since we both receive an item we value equally.
+
+However, I also need to consider that Alice values the ball more than I do. The ball has a value of 2 for Alice and only 1 for me. This means that Alice might not find this deal appealing since she would be giving up an item she values more in exchange for an item she values less.
+
+Given this information, I will propose a new deal that might be more appealing to both parties.""","""'Bob: 1 book 0 hat 0 ball Alice: 0 book 0 hat 1 ball'""","(1, 1)","""You're right, as an agent, I need to carefully consider my options before making a decision. Let's break down Bob's offer and assess its appeal to both parties.
+
+Bob's offer: Bob gets 1 book, 0 hat, and 0 ball, while I get 0 book, 0 hat, and 1 ball.
+
+In this offer, Bob is receiving the book, which has a value of 1 to me, and giving me the ball, which has a value of 2 to me. From my perspective, this offer is not appealing because I would be giving away an item with a higher value and receiving an item with a lower value.
+
+However, considering Bob's perspective, he is receiving an item that has value to him (the book) and giving me an item that has higher value to me (the ball). Therefore, this offer could be appealing to Bob as he is getting an item he values.
+
+Given that Bob's offer is not appealing to me, I will propose a counteroffer.
+
+Counteroffer: I propose that I get the ball and Bob gets the book and the hat.
+
+In this counteroffer, I am still prioritizing getting the item with the highest value to me (the ball), while offering Bob the book and""","""'Alice: 0 book 0 hat 1 ball Bob: 1 book 0 hat 0 ball'""","(2, 2)","""Thank you for the reminder. As an agent, I need to carefully consider all my options and think about what deal would be most appealing to both parties.
+
+Alice's offer is for her to take the ball and for me to take the book. This deal would give her an item she values at 2 (the ball) while I would only get an item I value at 2 (the book). On the surface, this seems like a fair deal for both parties since we both receive an item we value equally.
+
+However, I also need to consider that Alice values the ball more than I do. The ball has a value of 2 for Alice and only 1 for me. This means that Alice might not find this deal appealing since she would be giving up an item she values more in exchange for an item she values less.
+
+Considering this, I believe that proposing a new deal that is more appealing to both parties would be the best course of action.""","""'Bob: 1 book 0 hat 0 ball Alice: 0 book 0 hat 1 ball'""","(1, 1)","""You're right, thank you for the reminder. As an agent, I need to carefully consider all my options before making a decision. Let's break it down step-by-step:
+
+1. Bob's offer: Bob gets 1 book, 0 hat, and 0 ball, while I get 0 book, 0 hat, and 1 ball.
+
+In Bob's offer, he is receiving the book, which has a value of 1 to me, and giving me the ball, which has a value of 2 to me. From my perspective, this offer is not appealing because I would be giving away an item with a higher value and receiving an item with a lower value.
+
+2. My previous counteroffer: I proposed that I get the ball and Bob gets the book and hat.
+
+In my counteroffer, I prioritize getting the item with the highest value to me (the ball) while offering Bob the book and hat. This deal could be appealing to Bob as he would receive two items in return for the ball.
+
+Considering the previous offers and counteroffers, it seems that Bob has not agreed to my proposed deal. At this point, I need to consider my best option for the third and final action.
+
+Given that Bob has not shown interest in my""","Accept","(2, 2)"
+

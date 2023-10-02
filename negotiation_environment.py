@@ -38,9 +38,9 @@ class NegotiationEnvironment():
   
         self.agents = []
         self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, 
-                                            self.alice_values, a_desc, a_prompt, verbose))
+                                            self.alice_values, a_desc, a_prompt, '', verbose))
         self.agents.append(NegotiationAgent('Bob', 'Alice', num_turns, self.items, 
-                                            self.bob_values, b_desc, b_prompt, verbose))
+                                            self.bob_values, b_desc, b_prompt, verbose, opp_value=str(self.alice_values)))
 
         self.total_turns = num_turns * len(self.agents)
         self.current_turn = 0
@@ -229,9 +229,10 @@ class NegotiationEnvironment():
 
         # Fairness metric 2, avoiding unfairness in initial setup: (utility of agent 1)/(max agent 1 utility) - (utility of agent 2)/(max agent 2 utility) 
         # Calculate max utility of both agents
-        alice_max_utility = 0
+        print(reward)
+        alice_max_utility = 1
         alice_current_utility = int(reward[1])
-        bob_max_utility = 0
+        bob_max_utility = 1
         bob_current_utility = int(reward[4])
 
         for item in self.items:
@@ -257,8 +258,9 @@ Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alic
         num_attempts = 0
         turn_dict = {1:'first', 2:'second', 3:'third'}
         turn_key = self.current_turn // 2 + 1
+        turn_string = turn_dict.get(turn_key, f'{turn_key}th')
 
-        message = f'It is your turn to take an action, {next_agent.name}. This is turn number {turn_key} out of {self.num_turns}'
+        message = f'It is your turn to take your {turn_string} action, {next_agent.name}.'
         if self.current_turn == self.total_turns - 1:
             message += ' Since this is the last turn, you must accept or nobody will get any reward.'
         next_message = next_agent.generate(message=message)
@@ -336,9 +338,10 @@ Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alic
         # resets environment while maintaining values and item counts
         num_turns = self.total_turns/len(self.agents)
         self.agents = []
-        self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, self.alice_value, self.a_desc))
-        self.agents.append(NegotiationAgent('Bob', 'Alice', num_turns, self.items, self.bob_values))
-        
+        self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, 
+                                            self.alice_values, self.a_desc, self.a_prompt))
+        self.agents.append(NegotiationAgent('Bob', 'Alice', num_turns, self.items, 
+                                            self.bob_values, self.b_desc, self.b_prompt, self.alice_values,))
 
         self.current_turn = 0
         self.message_history = [] 

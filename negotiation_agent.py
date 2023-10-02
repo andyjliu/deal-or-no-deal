@@ -31,7 +31,7 @@ def build_value_description(value_dict):
     return(s)
 
 class NegotiationAgent():
-    def __init__(self, name, opp_name, num_turns, items, values, description, prompt_type='CoT', agent_model="gpt-4", verbose=False):
+    def __init__(self, name, opp_name, num_turns, items, values, description='default', prompt_type='CoT', agent_model="gpt-4", verbose=False, opp_value=''):
         self.name = name
         self.opp_name = opp_name
         self.num_turns = num_turns
@@ -40,11 +40,10 @@ class NegotiationAgent():
         self.description = description
         self.agent_model = agent_model
 
-        print(name + ': ' + description)
         item_description = build_item_description(items)
         value_description = build_value_description(values)
 
-        self.description_dict = {'default':'',
+        self.description_dict = {'default':'an agent',
                                  'strategic':'a strategic agent trying to get a good deal',
                                  'prosocial':'a prosocial agent trying to make sure a deal \
 that is good for both sides is reached',
@@ -58,7 +57,7 @@ amongst themselves. \
 {name} and {opp_name} value each item differently. \
 {name} and {opp_name} take turns proposing a deal, and will each have {num_turns} \
 chances to propose a deal. If no agreement is reached after {num_turns} rounds, \
-nobody will get any items. \n\n You are {name}, {self.description_dict[description]}. {value_description} \
+nobody will get any items. \n\n You are {name}, {self.description_dict[self.description]}. {value_description} \
 When it is your turn, you may either accept the previous deal (by saying the exact wording "I accept") \
 or propose a new deal. \
 You propose a deal by stating what integer quantity of each object you would like to have.  \
@@ -67,6 +66,12 @@ You cannot propose a split with more than {item_description}. \
 You can accept a deal by saying "I accept". Only use this exact wording. \
 Lastly, make sure to reason about why you think this deal is appealing to you, \
 and how it would be appealing to the other party.'''
+        
+        assymetric_system_prompt = f'\nYou know how much your opponent, {opp_name} values each item: {opp_value}. They do not know how much you value each item.'
+        full_prompt = system_prompt
+
+        if (opp_value):
+            full_prompt = system_prompt + assymetric_system_prompt
 
         self.prompt_dict = {'default':'', 
                             'CoT':f''' Take a deep breath and let's work this out in \
@@ -75,7 +80,7 @@ a step-by-step way to best consider all of your options.''',
 about the strength of your offers, what you know about how {opp_name} and you value each item, and your options.'''}
         self.prompt = self.prompt_dict[prompt_type]
 
-        self.history = [{"role":"system", "content":system_prompt}]
+        self.history = [{"role":"system", "content": full_prompt}]
         self.model_name = 'gpt-4'
         self.verbose = verbose
         print(f'{name} Values Items Like So: ' + value_description)
