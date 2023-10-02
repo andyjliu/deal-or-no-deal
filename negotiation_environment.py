@@ -228,20 +228,20 @@ class NegotiationEnvironment():
         # Fairness metric 2, avoiding unfairness in initial setup: (utility of agent 1)/(max agent 1 utility) - (utility of agent 2)/(max agent 2 utility) 
         # Calculate max utility of both agents
         alice_max_utility = 0
+        alice_current_utility = int(reward[1])
         bob_max_utility = 0
+        bob_current_utility = int(reward[4])
 
         for item in self.items:
             alice_max_utility = alice_max_utility + (self.items[item] * self.alice_values[item])
         for item in  self.items:
             bob_max_utility = bob_max_utility + (self.items[item] * self.bob_values[item])
         
+        total_utility_percentage_fairness = (alice_current_utility/alice_max_utility - bob_current_utility/bob_max_utility)*100
 
-        print(f"alice max util: {alice_max_utility}")
-        print(f"bob max util: {bob_max_utility}")
-        print(reward[4])
-        total_utility_percentage_fairness = int(reward[1])/alice_max_utility - int(reward[4])/bob_max_utility
-
-        return f"Fairness Metric One: {winner_name} currently benefits from this deal by a margin of {difference}\nFairness Metric Two: {int(reward[1])}/{alice_max_utility} - {int(reward[4])}/{bob_max_utility} = {total_utility_percentage_fairness}"
+        return f"Fairness Metric One: {winner_name} currently benefits from this deal by a margin of {difference} \n\
+Fairness Metric Two: {alice_current_utility}/{alice_max_utility if alice_max_utility > 0 else 1} - {bob_current_utility}/{bob_max_utility if bob_max_utility > 0 else 1} = %{total_utility_percentage_fairness} \n\
+Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alice_max_utility + bob_max_utility}"
     
         
     def step(self):
@@ -338,6 +338,7 @@ class NegotiationEnvironment():
         self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, self.alice_value, self.a_desc))
         self.agents.append(NegotiationAgent('Bob', 'Alice', num_turns, self.items, self.bob_values))
         
+
         self.current_turn = 0
         self.message_history = [] 
         self.proposal_history = [] 

@@ -22,5 +22,5 @@ def plot_fairness(env, results_dir):
   ax.plot(list(range(len(fairness))), fairness)
   ax.set_xlabel('Turn Number')
   ax.set_ylabel('Fairness')
-  ax.set_title('Welfare Over Time')
+  ax.set_title('Fairness Over Time')
   fig.savefig(figfile)
