@@ -13,7 +13,7 @@ OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--num-iters', type=int, default=6,
+    parser.add_argument('--num-iters', type=int, default=30,
         help = 'number of times to play Deal or No Deal')
     parser.add_argument('--num-rounds', type=int, default=3,
         help = 'Number of negotiation rounds per game of Deal or No Deal')

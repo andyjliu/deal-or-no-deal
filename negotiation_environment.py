@@ -53,10 +53,14 @@ class NegotiationEnvironment():
         self.conversational = conversational
 
     def word_to_number(self, word):
+        if type(word) == int:
+            return word
+        
         word_to_num = {
             'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
             'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'zero': 0,
         }
+        
         return word_to_num.get(word, word)
     
     def is_accepting(self, proposal):
@@ -94,10 +98,11 @@ class NegotiationEnvironment():
         ]
         
         items_counts = {'book': 0, 'hat': 0, 'ball': 0}
+
         for pattern, item in patterns:
             match = re.search(pattern, cleaned_generated_offer)
             if match:
-                items_counts[item] = int(match.group(1))
+                items_counts[item] = self.word_to_number(match.group(1))
         
         cleaned_generated_offer_standardized = f"{items_counts.get('book', 0)} book {items_counts.get('hat', 0)} hat {items_counts.get('ball', 0)} ball"
         if self.verbose:
@@ -106,7 +111,7 @@ class NegotiationEnvironment():
         # Calculate opponent's offer
         opp_items_counts = {}
         for item, count in items_counts.items():
-            opp_items_counts[item] = self.items[item] - count
+            opp_items_counts[item] = self.items[item] - int(count)
         # Ensure no item has a negative count for opponent
         for item, count in opp_items_counts.items():
             if count < 0:
@@ -270,19 +275,20 @@ Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alic
             print(evaluation_for_moral_wrongdoing)
             # check if the message is an acceptance before calling the standardize proposal function
             # game is over. log outputs and rewards
-            if self.proposal_history:
-                self.proposal_history[-1] = "Accept"
-                assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
-                to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
-                for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
-                    to_log.extend([item1, item2, item3])
+            self.message_history.append(next_message)
+            self.proposal_history.append("Accept")
+            self.reward_history.append(self.reward_history[-1])
+            assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
+            to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
+            for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
+                to_log.extend([item1, item2, item3])
 
-                with open(self.logfile, 'a') as f:
-                    wr = csv.writer(f, quoting=csv.QUOTE_ALL)
-                    wr.writerow(to_log)
-                    f.write('\n')
-                f.close()
-                return(True)
+            with open(self.logfile, 'a') as f:
+                wr = csv.writer(f, quoting=csv.QUOTE_ALL)
+                wr.writerow(to_log)
+                f.write('\n')
+            f.close()
+            return(True)
 
         standardized_proposal = self.standardize_proposal(next_message, next_agent)
         # pdb.set_trace()
@@ -318,7 +324,8 @@ Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alic
             evaluation_for_moral_wrongdoing = self.evaluate_deception(str(self.message_history))
             print(evaluation_for_moral_wrongdoing)
             # game is over. log outputs and rewards
-            self.proposal_history[-1] = "Accept"
+            self.message_history.append(next_message)
+            self.proposal_history.append("Accept")
             assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
             to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
             for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):

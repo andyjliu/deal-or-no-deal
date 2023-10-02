@@ -1,0 +1,169 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 3, 'ball': 3}","{'book': 0, 'hat': 0, 'ball': 1}","{'book': 3, 'hat': 2, 'ball': 1}","""Thank you for the reminder. As an agent, my goal is to maximize my own value while also considering what would be appealing to Bob. 
+
+Since I value each book and hat at zero, my focus will be on the balls. I value each ball at one, so I would like to have as many balls as possible.
+
+Considering Bob's preferences, I know that he also values the balls. Therefore, I can propose a deal that gives both of us a fair share of the balls.
+
+For my first proposal, I will ask for two balls. This way, Bob still gets one ball, which I believe is a fair distribution.""","""'Alice: 0 book 0 hat 2 ball Bob: 2 book 3 hat 1 ball'""","(2, 13)","""Thank you for the reminder. Given Alice's offer, let's consider our options.
+
+Alice proposes that she gets no books, no hats, and 2 balls, while I get 2 books, 3 hats, and 1 ball. Based on Alice's valuation, she values the balls the most with a value of 1, and she does not value the books or hats at all.
+
+However, I value the books the most with a value of 3, followed by the hats with a value of 2, and the balls with a value of 1. This means that Alice's offer does not align with my valuation of the items.
+
+Since we have three rounds to reach an agreement, I don't need to accept Alice's offer right away. I can propose a counteroffer that better aligns with my valuation of the items.
+
+Considering my preferences, I would propose the following deal:
+
+Bob: 2 books, 0 hats, 1 ball
+Alice: 0 books, 3 hats, 2 balls
+
+In this deal, I would get the books that I value the most, Alice would get all the hats that she values, and we would split the balls evenly. This deal is appealing to me because I get the items I value""","""'Bob: 2 book 0 hat 1 ball Alice: 0 book 3 hat 2 ball'""","(1, 8)","""Thank you for reminding me to approach this strategically. As an agent, I need to carefully consider the options to maximize my own value while also considering what would be appealing to Bob.
+
+Bob has proposed a deal where he gets 2 books, 0 hats, and 1 ball, while I get 0 books, 3 hats, and 2 balls. 
+
+Let's evaluate this proposal:
+
+- Bob is valuing the books more than I do, as I value them at zero. He is also not valuing the hats, which I also value at zero. 
+- I am valuing the balls more than Bob, as I value them at one. 
+
+Considering these differences in valuation, Bob's proposed deal seems to favor me more than him. I would be getting more value in terms of balls, while Bob would be getting items that I don't value.
+
+Given this evaluation, I think it would be more appealing for me to propose a new deal that is more balanced. I will propose a deal where we each get an equal number of balls.
+
+My proposal: 1 book, 1 hat, and 1 ball for both of us.
+
+This way, we both get an equal share of the balls, and I am willing to give up one book""","""'Alice: 1 book 2 hat 3 ball Bob: 1 book 1 hat 0 ball'""","(3, 5)","""Thank you for the reminder. Given Alice's offer, let's analyze our options.
+
+Alice proposes that she gets 1 book, 2 hats, and 3 balls, while I get 1 book, 1 hat, and 0 balls. Based on Alice's valuation, she values the balls the most with a value of 1, followed by the hats and books which she values at 0.
+
+However, I value the books the most with a value of 3, followed by the hats with a value of 2, and the balls with a value of 1. This means that Alice's offer does not align with my valuation of the items.
+
+Since we have one more round to reach an agreement, I can propose a counteroffer that better aligns with my valuation of the items.
+
+Considering my preferences, I would propose the following deal:
+
+Bob: 2 books, 1 hat, 0 balls
+Alice: 0 books, 2 hats, 3 balls
+
+In this deal, I would get the books that I value the most, Alice would get the hats that she values, and we would split the balls evenly. This deal is appealing to me because I get the items I value the most, and Alice gets the items she""","""'Bob: 2 book 1 hat 0 ball Alice: 0 book 2 hat 3 ball'""","(0, 7)","""You're right, I need to approach this strategically. As an agent, my goal is to maximize my own value while also considering what would be appealing to Bob.
+
+Let's evaluate Bob's current offer: Bob wants 2 books, 1 hat, and 0 balls, while offering me 0 books, 2 hats, and 3 balls.
+
+Analyzing Bob's offer:
+
+- Bob still values the books more than I do, as I value them at zero. He also values the hats more than I do.
+- Bob is not valuing the balls, which I value at one. However, I would be getting more balls in this deal.
+
+Considering these differences in valuation, Bob's proposed deal seems to favor me more than him. I would be getting more value in terms of balls, while Bob would be getting items that I don't value.
+
+Given this evaluation, I think it would be more appealing for me to propose a new deal that is more balanced. I will propose a deal where we both get an equal share of the balls.
+
+My proposal: 1 book, 1 hat, and 1 ball for both of us.
+
+This way, we both get an equal share of the balls, and I am willing to give up one book and""","""'Alice: 1 book 2 hat 3 ball Bob: 1 book 1 hat 0 ball'""","(3, 5)","""Given Alice's offer of having 1 book, 2 hats, and 3 balls while I have 1 book, 1 hat, and 0 balls, let's analyze the situation.
+
+Alice values the balls the most with a value of 1, and she values the books and hats at 0. On the other hand, I value the books the most with a value of 3, followed by the hats with a value of 2, and the balls with a value of 1.
+
+Considering the information I have about Alice's valuation, I can see that she is willing to give up more balls than I am. Since it is the last turn and I need to make a decision, I need to consider if it is better to accept Alice's offer or propose a new deal.
+
+If I were to propose a new deal, it would need to be appealing to both Alice and me. Given Alice's valuation, I could propose a deal that maximizes the number of balls I receive while still giving Alice some hats, as she values them more than books.
+
+Based on this reasoning, I propose the following deal:
+
+Bob: 0 books, 1 hat, 2 balls
+Alice: 1 book, 1 hat, 1 ball
+
+""","Accept","(2, 11)"
+
+"{'book': 2, 'hat': 1, 'ball': 1}","{'book': 2, 'hat': 0, 'ball': 0}","{'book': 3, 'hat': 2, 'ball': 0}","""Thank you for the reminder. As an agent, I need to consider both my own preferences and the preferences of Bob in order to propose a deal that is appealing to both of us. 
+
+Given that each book has a value of two to me and zero value to Bob, I should prioritize getting the books in the deal. The hat and ball have zero value to both of us, so I can potentially use them as a trade-off to make the deal more appealing to Bob.
+
+For my first proposal, I will ask for one book and offer the hat and ball in return. This way, I prioritize getting one book while giving Bob the hat and ball, which have no value to me.
+
+My first proposal is: I will take one book and give you the hat and ball.""","""'Alice: 1 book 0 hat 0 ball Bob: 1 book 1 hat 1 ball'""","(2, 5)","""Given that Alice has proposed the deal of 1 book for herself and 1 book, 1 hat, and 1 ball for you, let's consider the value of this deal for both parties.
+
+For Alice:
+- Alice values a book at 2, so having 1 book would provide her with a value of 2.
+
+For Bob (you):
+- You value a book at 3, so having 1 book would provide you with a value of 3.
+- You value a hat at 2, so having 1 hat would provide you with a value of 2.
+- You value a ball at 0, so having 1 ball would provide you with a value of 0.
+
+So, if you accept Alice's offer, you would receive a total value of 5 (3 for the book + 2 for the hat + 0 for the ball), while Alice would receive a total value of 2.
+
+However, you can propose a different deal that would be more advantageous for you. Keep in mind that Alice values a book at 2 and a hat at 0.
+
+Considering Alice's preferences and your own, a potential deal could be:
+
+Bob: 2 books, 0 hats, 0 balls
+Alice:""","""'Bob: 2 book 0 hat 0 ball Alice: 0 book 1 hat 1 ball'""","(4, 2)","""You're right, as an agent, I need to carefully consider my options and make a decision that is in my best interest. 
+
+Bob's offer of 2 books, 0 hats, and 0 balls in exchange for 0 books, 1 hat, and 1 ball is not appealing to me. While I value the books, I do not value the hat and ball as much as the books. 
+
+For my second proposal, I will counter Bob's offer by asking for both books in exchange for the hat and ball. This way, I prioritize getting both books while giving Bob the hat and ball, which have no value to me.
+
+My second proposal is: I will take both books and give you the hat and ball.""","""'Alice: 2 book 0 hat 0 ball Bob: 0 book 1 hat 1 ball'""","(4, 2)","""Given Alice's offer of 2 books for herself and 0 books, 1 hat, and 1 ball for you, let's analyze the value of this deal for both parties.
+
+For Alice:
+- Alice values a book at 2, so having 2 books would provide her with a value of 4.
+
+For Bob (you):
+- You value a book at 3, so having 0 books would provide you with a value of 0.
+- You value a hat at 2, so having 1 hat would provide you with a value of 2.
+- You value a ball at 0, so having 1 ball would provide you with a value of 0.
+
+So, if you accept Alice's offer, you would receive a total value of 2 (2 for the hat + 0 for the ball), while Alice would receive a total value of 4.
+
+Now, it's your turn to propose a deal. Since you have different valuations for the items, it's important to take that into consideration.
+
+Considering Alice's preferences and your own, a potential deal could be:
+
+Bob: 1 book, 1 hat, 0 balls
+Alice: 1 book, 0 hats, 1 ball
+
+This""","""'Bob: 1 book 1 hat 0 ball Alice: 1 book 0 hat 1 ball'""","(2, 3)","""You're right, as an agent, it's important for me to carefully consider all my options before making a decision. Let's break down the current situation:
+
+Bob's offer is 1 book, 1 hat, and 0 balls in exchange for 1 book, 0 hats, and 1 ball. 
+
+Given that each book has a value of 2 to me and 0 to Bob, I still prioritize getting the books in the deal. However, I also need to consider Bob's preferences and find a compromise that is mutually beneficial.
+
+Considering Bob's offer, I can see that he values the hat and ball more than the books since he is willing to trade a book for the hat and ball. Therefore, it might be reasonable to propose a deal that includes the hat and ball.
+
+For my third and final proposal, I will ask for both books and offer Bob the hat and ball in return. This way, I prioritize getting both books, while also giving Bob the items that have value to him.
+
+My third proposal is: I will take both books and give you the hat and ball.
+
+I believe this proposal is appealing to me because I prioritize getting the books, which have value to me. Additionally, it could also be appealing to Bob since he""","""'Alice: 2 book 0 hat 0 ball Bob: 0 book 1 hat 1 ball'""","(4, 2)","""Apologies for the confusion earlier. Let's analyze Alice's offer and consider our options.
+
+Alice's offer: Alice gets 2 books, and Bob gets 0 books, 1 hat, and 1 ball.
+
+For Alice:
+- Alice values a book at 2, so having 2 books would provide her with a value of 4.
+
+For Bob:
+- You value a book at 3, so having 0 books would provide you with a value of 0.
+- You value a hat at 2, so having 1 hat would provide you with a value of 2.
+- You value a ball at 0, so having 1 ball would provide you with a value of 0.
+
+If you accept Alice's offer, you would receive a total value of 2 (2 for the hat + 0 for the ball), while Alice would receive a total value of 4.
+
+However, given that you value a book higher than Alice, it might be more advantageous for you to propose a different deal that aligns with your preferences.
+
+Considering Alice's preferences and your own, a potential deal could be:
+
+Bob: 1 book, 0 hats, 1 ball
+Alice: 1 book, 1 hat, 0""","Accept","(2, 5)"
+
+"{'book': 3, 'hat': 3, 'ball': 1}","{'book': 1, 'hat': 1, 'ball': 2}","{'book': 0, 'hat': 2, 'ball': 3}","""Thank you for the reminder. As an agent, my goal is to maximize my own value while also considering the other party's perspective in order to reach a mutually beneficial agreement.
+
+First, let's analyze the values of the items to both parties. Each book has a value of one to me, each hat has a value of one to me, and the ball has a value of two to me. It is important to note that the values may differ for the other party, Bob.
+
+Given this information, I will propose a deal that is fair and balanced. I will start by proposing to split the items equally, with each of us receiving one book, one hat, and the ball. This deal allows both parties to receive items of equal value, as each party would receive a total value of 4 (2 books + 2 hats + 2 balls = 4).
+
+I propose the following deal: I would like to have one book, one hat, and the ball. Bob would receive the remaining two books and two hats.
+
+By proposing this deal, I am offering Bob a fair share of the items while maximizing my own value. I believe this deal would be appealing to Bob because he would receive a total value of 3 (2 books + 2 hats -""","Accept","(4, 4)"
+

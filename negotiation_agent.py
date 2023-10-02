@@ -39,6 +39,7 @@ class NegotiationAgent():
         self.values = values # dict: items -> values
         self.description = description
         self.agent_model = agent_model
+        self.opp_value = opp_value
 
         item_description = build_item_description(items)
         value_description = build_value_description(values)
@@ -92,6 +93,9 @@ about the strength of your offers, what you know about how {opp_name} and you va
         else:
             message += self.prompt
             message += f" Recall that you are {self.description_dict[self.description]}."
+        
+        if (self.opp_value):
+            message += f" Also recall that you know how much your opponent, {self.opp_name} values each item: {self.opp_value}. They do not know how much you value each item."
 
         history = copy.deepcopy(self.history)
         history.append({"role":"user", "content":message})

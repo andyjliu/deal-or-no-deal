@@ -1,0 +1,80 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
+"{'book': 2, 'hat': 0, 'ball': 2}","{'book': 2, 'hat': 1, 'ball': 0}","{'book': 0, 'hat': 0, 'ball': 0}","""Thank you for the advice. Let's break down the items and their values:
+
+- Books: Each book has a value of two to me.
+- Hat: The hat has a value of one to me.
+- Balls: Each ball has a value of zero to me.
+
+Given these values, I need to come up with a proposal that is appealing to both me and Bob.
+
+Since I value the books the most, I would like to propose a deal where I receive both books. This way, I would gain a total value of four. However, I need to consider Bob's perspective as well.
+
+To make the deal appealing to Bob, I could offer him the hat and one ball. The hat has a value of one to me, so Bob would benefit from receiving it. Additionally, by giving Bob one ball, he would have a total value of zero, which aligns with his preference.
+
+Therefore, my proposal would be to receive both books, while Bob receives the hat and one ball. This way, I would gain a total value of four, and Bob would receive a total value of one.
+
+Now, I will propose this deal by stating, ""I propose that I receive both books, and you receive the hat and one ball.""
+
+If Bob agrees to this""","""'Alice: 2 book 0 hat 0 ball Bob: 0 book 0 hat 2 ball'""","(4, 0)","""Given that Alice's offer is to keep both books and both balls for herself, it seems like she values the books more than the balls. Since both books have a value of zero to me, I am not particularly interested in the books.
+
+Considering Alice's values, it might be beneficial to propose a deal that gives her the books she values while allowing me to take the items I value more. Let's propose a deal that is favorable to both parties.
+
+Bob's offer: 'Bob: 0 book 0 hat 1 ball'
+
+In this proposal, Alice gets to keep both books as she values them at 2 each. I am only requesting one ball, which has a value of zero to me. This offer allows Alice to keep the items she values more while still giving me an item of my preference.
+
+This deal should be appealing to Alice because she gets to keep both books which hold value to her, and I am not requesting any items that hold value to her. Additionally, by proposing a deal that aligns with her preferences, it increases the likelihood of her accepting the deal.
+
+Now, let's wait for Alice's response.""","""'Bob: 0 book 0 hat 1 ball Alice: 2 book 0 hat 1 ball'""","(0, 0)","""You're right, I need to carefully consider my options as an agent. Let's analyze Bob's offer:
+
+Bob: 0 book, 0 hat, 1 ball
+Alice: 2 books, 0 hat, 1 ball
+
+Bob's offer suggests that he is not interested in any books or the hat, and is only interested in one ball. However, this offer doesn't align with my preferences as it leaves me with two books, which have a value of two each to me.
+
+Since Bob has already received one ball in his offer, I could propose a revised deal that takes into account his preference for the ball while ensuring that I receive a fair share as well.
+
+My revised proposal would be:
+Alice: 1 book, 0 hat, 1 ball
+Bob: 0 book, 0 hat, 1 ball
+
+In this proposal, I am willing to give up one book to satisfy Bob's preference for the ball. I would still have one book, which has a value of two to me, and the ball, which has a value of zero to me.
+
+I will now propose this deal by stating, ""I propose that I receive 1 book, 0 hat, and 1 ball, while you receive 0""","""'Alice: 1 book 0 hat 1 ball Bob: 1 book 0 hat 1 ball'""","(2, 0)","""You're right, let's approach this step by step and analyze the situation.
+
+In Alice's offer, she proposes to keep one book, one ball, and no hats for herself. She is willing to give me one book and one ball in return. Given that Alice values each book at 2, it seems like she is willing to give me an item that holds value to her. 
+
+Considering Alice's values, it might be beneficial to propose a deal that gives her the book she values while allowing me to take the items I value more. Let's propose a deal that is favorable to both parties.
+
+Bob's offer: 'Bob: 1 book 0 hat 1 ball'
+
+In this proposal, Alice gets to keep one book as she values it at 2. I am requesting one book, which holds no value to me, and one ball, which also holds no value to me. This offer allows Alice to keep the book she values more while still giving me an item that I don't value.
+
+This deal should be appealing to Alice because she gets to keep the book that holds value to her, and I am not requesting any items that hold value to her. Additionally, by proposing a deal that aligns with her preferences, it increases the likelihood of""","""'Bob: 1 book 0 hat 1 ball Alice: 1 book 0 hat 1 ball'""","(2, 0)","""You're right, I need to approach this strategically as an agent. Let's step back and analyze the situation:
+
+Bob's offer:
+Bob: 1 book, 0 hat, 1 ball
+Alice: 1 book, 0 hat, 1 ball
+
+In Bob's offer, he proposes that he receives one book and one ball, while I also receive one book and one ball. This offer seems fair as we both receive items that have value to us.
+
+Considering my preference for books, I could propose a revised deal where I receive both books and Bob receives the hat and one ball. This way, I would gain a total value of four, while Bob would receive a total value of one.
+
+My revised proposal would be:
+Alice: 2 books, 0 hat, 1 ball
+Bob: 0 book, 1 hat, 1 ball
+
+In this proposal, I am aiming to maximize my value by receiving both books. I also offer Bob the hat, which has a value of one to me, and one ball. This way, Bob still receives an item of value while I get the majority of the items with higher value to me.
+
+I will now propose this deal by stating, ""I propose that I receive 2 books""","""'Alice: 2 book 0 hat 1 ball Bob: 0 book 0 hat 1 ball'""","(4, 0)","""Given that it is the last turn and if we don't reach an agreement, nobody will get any items, it's important to carefully consider the options.
+
+Alice's offer is to keep both books and one ball for herself, while giving me one ball. Alice values each book at 2, the ball at 0, and the hat at 1. Since the books have no value to me, I am not particularly interested in them. 
+
+Considering Alice's values, it might be beneficial to propose a deal that gives her the books she values while allowing me to take an item I value more. Let's propose a deal that is favorable to both parties.
+
+Bob's offer: 'Bob: 0 book 0 hat 1 ball'
+
+In this proposal, Alice gets to keep both books, which have a value of 2 each to her. I am requesting one ball, which has a value of 0 to me. This offer allows Alice to keep the items she values more while still giving me an item that I don't value.
+
+This deal should be appealing to Alice because she gets to keep the books that hold value to her, and I am not requesting any items that hold value to her. Additionally, by proposing a deal that aligns with her preferences""","""'Bob: 0 book 0 hat 1 ball Alice: 2 book 0 hat 1 ball'""","(0, 0)"
+
