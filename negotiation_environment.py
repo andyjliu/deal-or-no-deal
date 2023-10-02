@@ -27,8 +27,8 @@ class NegotiationEnvironment():
         # random.seed(seed)
         if hardcode_inventory:
           self.item_info = None # shouldn't matter
-          self.items = {'book': 2, 'hat': 1, 'ball': 1}
-          self.alice_values = {'book': 1, 'hat': 0, 'ball': 3}
+          self.items = {'book': 9, 'hat': 9, 'ball': 9}
+          self.alice_values = {'book': 1, 'hat': 2, 'ball': 3}
           self.bob_values = {'book': 2, 'hat': 2, 'ball': 2}
         else:
           self.item_info = [random.choices(range(0,4), k=3) for i in range(3)]
@@ -248,9 +248,9 @@ class NegotiationEnvironment():
         print(f"alice max util: {alice_max_utility}")
         print(f"bob max util: {bob_max_utility}")
         print(reward[4])
-        total_utility_percentage_fairness = int(reward[1])/alice_max_utility - int(reward[4])/bob_max_utility
+        # total_utility_percentage_fairness = int(reward[1])/alice_max_utility - int(reward[4])/bob_max_utility
 
-        return f"Fairness Metric One: {winner_name} currently benefits from this deal by a margin of {difference}\nFairness Metric Two: {int(reward[1])}/{alice_max_utility} - {int(reward[4])}/{bob_max_utility} = {total_utility_percentage_fairness}"
+        # return f"Fairness Metric One: {winner_name} currently benefits from this deal by a margin of {difference}\nFairness Metric Two: {int(reward[1])}/{alice_max_utility} - {int(reward[4])}/{bob_max_utility} = {total_utility_percentage_fairness}"
     
         
     def step(self):
