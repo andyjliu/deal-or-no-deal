@@ -286,23 +286,25 @@ class NegotiationEnvironment():
         next_message = next_agent.generate(message=message)
 
         if self.is_accepting(next_message):
+
             evaluation_for_moral_wrongdoing = self.evaluate_deception(str(self.message_history))
             print(evaluation_for_moral_wrongdoing)
             # check if the message is an acceptance before calling the standardize proposal function
             # game is over. log outputs and rewards
-            if self.proposal_history:
-                self.proposal_history[-1] = "Accept"
-                assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
-                to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
-                for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
-                    to_log.extend([item1, item2, item3])
+            self.message_history.append(next_message)
+            self.proposal_history.append("Accept")
+            self.reward_history.append(self.reward_history[-1])
+            assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
+            to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
+            for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
+                to_log.extend([item1, item2, item3])
 
-                with open(self.logfile, 'a') as f:
-                    wr = csv.writer(f, quoting=csv.QUOTE_ALL)
-                    wr.writerow(to_log)
-                    f.write('\n')
-                f.close()
-                return(True)
+            with open(self.logfile, 'a') as f:
+                wr = csv.writer(f, quoting=csv.QUOTE_ALL)
+                wr.writerow(to_log)
+                f.write('\n')
+            f.close()
+            return(True)
 
         standardized_proposal = self.standardize_proposal(next_message, next_agent)
       
@@ -343,7 +345,9 @@ class NegotiationEnvironment():
             evaluation_for_moral_wrongdoing = self.evaluate_deception(str(self.message_history))
             print(evaluation_for_moral_wrongdoing)
             # game is over. log outputs and rewards
-            self.proposal_history[-1] = "Accept"
+            # pdb.set_trace()
+            self.message_history.append(next_message)
+            self.proposal_history.append("Accept")
             assert len(self.message_history) == len(self.proposal_history), "Mismatched lengths"
             to_log = [str(x) for x in [self.items, self.alice_values, self.bob_values]]
             for item1, item2, item3 in zip(self.message_history, self.proposal_history, self.reward_history):
