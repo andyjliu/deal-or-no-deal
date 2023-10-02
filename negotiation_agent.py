@@ -71,7 +71,7 @@ All the reasoning you perform above will be kept private to you. \
 However, if you like, you may also send a message to {opp_name} by writing an additional section in your output \
 with this exact format: \
 \
-    I send the following message to {opp_name}:
+    I will send the following message to {opp_name}:
     <MESSAGE> \
 \
 Your <MESSAGE> should all be on a single line, on the line right after "I send the following message to {opp_name}:".\

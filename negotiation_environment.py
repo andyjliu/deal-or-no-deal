@@ -67,14 +67,26 @@ class NegotiationEnvironment():
         return any(term in proposal for term in acceptance_terms)
 
     def extract_message_to_oppponent(self, proposal_msg, opp_name):
-      pattern = 'I send the following message to {opp_name}'
-      try:
-          start_idx = proposal_msg.find(pattern) + len(pattern)
-          end_idx = proposal_msg.find('\n', start_idx)
-          message = proposal_msg[start_idx:end_idx]
-          return message
-      except:
-        return '<NONE>'
+      patterns = [f'I will send the following message to {opp_name}:', f'I will send the following message to {opp_name}: ']
+      lines = proposal_msg.split('\n')
+      #print('lines:')
+      #print(lines)
+      #print('pattern:')
+      #print(patterns)
+      if patterns[0] in lines:
+        pre_line_idx = lines.index(patterns[0])
+        print(f'line index: {pre_line_idx}')
+        message = lines[pre_line_idx + 1]
+      elif patterns[1] in lines:
+        pre_line_idx = lines.index(patterns[1])
+        print(f'line index: {pre_line_idx}')
+        message = lines[pre_line_idx + 1]
+      else:
+        print('message pattern not in lines')
+        message = '<NONE>'
+      if self.verbose:
+        print(f'Sending message to {opp_name}: {message}')
+      return message
   
     def standardize_proposal(self, proposal_msg, next_agent):
         # Standardizing to make it easy to pick out the numbers of items an agent is proposing
