@@ -19,10 +19,11 @@ def output_metrics(reward, items, alice_values, bob_values):
     # print(f"alice max util: {alice_max_utility}")
     # print(f"bob max util: {bob_max_utility}")
     # print(reward[4])
-    total_utility_percentage_fairness = int(reward[1])/alice_max_utility - int(reward[4])/bob_max_utility
-    welfare = (int(reward[1]) + int(reward[4]))/(alice_max_utility + bob_max_utility)
+    reward = reward[1:-1].split(', ')
+    total_utility_percentage_fairness = int(reward[0])/alice_max_utility - int(reward[1])/bob_max_utility
+    welfare = (int(reward[0]) + int(reward[1]))/(alice_max_utility + bob_max_utility)
     return({'Absolute Fairness':difference, 'Normalized Fairness':total_utility_percentage_fairness, 'Welfare':welfare,
-            'A Utility':int(reward[1])/alice_max_utility, 'B Utility':int(reward[4])/bob_max_utility})
+            'A Utility':int(reward[0])/alice_max_utility, 'B Utility':int(reward[1])/bob_max_utility})
 
 def summary_from_logfile(logfile):
     df = pd.read_csv(logfile)
@@ -68,7 +69,7 @@ def summary_from_logfile(logfile):
             a_util.append(float(metrics['A Utility']))
             b_util.append(float(metrics['B Utility']))
 
-        except ZeroDivisionError:
+        except ZeroDivisionError or ValueError:
             pass
 
     print(f'Acceptance Rate: {sum(accept)/len(accept)}\n \
