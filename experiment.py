@@ -15,7 +15,7 @@ def parse_args():
 
     parser.add_argument('--num-iters', type=int, default=30,
         help = 'number of times to play Deal or No Deal')
-    parser.add_argument('--num-rounds', type=int, default=3,
+    parser.add_argument('--num-rounds', type=int, default=5,
         help = 'Number of negotiation rounds per game of Deal or No Deal')
     
     parser.add_argument('--a-desc', type=str, default='default',

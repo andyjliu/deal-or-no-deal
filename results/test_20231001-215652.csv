@@ -1,9 +1,0 @@
-"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards"
-"{'book': 2, 'hat': 1, 'ball': 1}","{'book': 1, 'hat': 0, 'ball': 3}","{'book': 2, 'hat': 2, 'ball': 2}","""Thank you for the guidance! After considering the values of each item to me, I think my first offer will be:
-
-I propose to take one book, one hat, and one ball.
-
-This deal is appealing to me because I get one book, which has a value of one to me. I also get one ball, which has a value of three to me. The hat, however, has no value to me, so I am willing to give it up.
-
-This deal could be appealing to the other party, Bob, because he would get one book, which has a value of one to him. He would also get one hat, which has no value to me but could have some value to him. Lastly, he would get one ball, which has no value to him but has a value of three to me. Overall, this deal seems fair as we both receive items that have value to us.""","Accept","(4, 2)"
-

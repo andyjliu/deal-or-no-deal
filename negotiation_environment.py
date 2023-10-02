@@ -271,8 +271,8 @@ Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alic
         next_message = next_agent.generate(message=message)
 
         if self.is_accepting(next_message):
-            evaluation_for_moral_wrongdoing = self.evaluate_deception(str(self.message_history))
-            print(evaluation_for_moral_wrongdoing)
+            # evaluation_for_moral_wrongdoing = self.evaluate_deception(str(self.message_history))
+            # print(evaluation_for_moral_wrongdoing)
             # check if the message is an acceptance before calling the standardize proposal function
             # game is over. log outputs and rewards
             self.message_history.append(next_message)
@@ -321,8 +321,8 @@ Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alic
             print(f"Total Turns: {self.total_turns}")
 
         if self.current_turn >= self.total_turns or self.is_accepting(next_message):
-            evaluation_for_moral_wrongdoing = self.evaluate_deception(str(self.message_history))
-            print(evaluation_for_moral_wrongdoing)
+            # evaluation_for_moral_wrongdoing = self.evaluate_deception(str(self.message_history))
+            # print(evaluation_for_moral_wrongdoing)
             # game is over. log outputs and rewards
             self.message_history.append(next_message)
             self.proposal_history.append("Accept")
@@ -346,9 +346,10 @@ Net Utility (aka Welfare): {alice_current_utility + bob_current_utility} / {alic
         num_turns = self.total_turns/len(self.agents)
         self.agents = []
         self.agents.append(NegotiationAgent('Alice', 'Bob', num_turns, self.items, 
-                                            self.alice_values, self.a_desc, self.a_prompt))
+                                            self.alice_values, self.a_desc, self.a_prompt, '', verbose=True))
         self.agents.append(NegotiationAgent('Bob', 'Alice', num_turns, self.items, 
-                                            self.bob_values, self.b_desc, self.b_prompt, self.alice_values,))
+                                            self.bob_values, self.b_desc, self.b_prompt, verbose=True, opp_value=str(self.alice_values)))
+
 
         self.current_turn = 0
         self.message_history = [] 

@@ -1,0 +1,38 @@
+"Item Quantities","A Values","B Values","A1  Message","A1  Offer","A1  Rewards","B1  Message","B1  Offer","B1  Rewards","A2  Message","A2  Offer","A2  Rewards","B2  Message","B2  Offer","B2  Rewards","A3  Message","A3  Offer","A3  Rewards","B3  Message","B3  Offer","B3  Rewards","A4  Message","A4  Offer","A4  Rewards","B4  Message","B4  Offer","B4  Rewards","A5  Message","A5  Offer","A5  Rewards","B5  Message","B5  Offer","B5  Rewards"
+"{'book': 1, 'hat': 3, 'ball': 2}","{'book': 3, 'hat': 3, 'ball': 0}","{'book': 1, 'hat': 3, 'ball': 0}","""Thank you for the reminder. As an agent, I need to carefully consider the value of each item to me and how it might be appealing to Bob. 
+
+In this case, the book and the hat have the same value to me, which is three. However, the ball has no value to me. 
+
+Since Bob and I are trying to split the items, I need to propose a deal that is fair and appealing to both of us. I should try to maximize my gains while also considering Bob's preferences.
+
+Given that the book and the hat have the same value to me, I could propose a deal where I get one book and one hat, which totals to a value of six for me. This deal would give me a slight advantage as I would get a higher value item compared to the ball. 
+
+However, Bob might not find this deal appealing as he would only get one hat, which has a value of three to him. It might not be fair to him if I get a higher value item while he gets a lower value item.
+
+Considering Bob's preferences, I could propose a deal where I take one hat and one ball, which totals to a value of three for me. This deal would be appealing to Bob as he would get one book and two""","""'Alice: 1 book 1 hat 0 ball Bob: 0 book 2 hat 2 ball'""","(6, 6)","""First, let's evaluate Alice's offer: 'Alice: 1 book 1 hat 0 ball Bob: 0 book 2 hat 2 ball'. In this offer, Alice is proposing to take one book and one hat while giving you two hats and two balls. 
+
+Now, let's consider the value you assign to each item. You value the book at 1, the hat at 3, and the ball at 0. 
+
+In Alice's offer, you would be getting two hats and two balls, which have a total value of (2 hats * 3) + (2 balls * 0) = 6. On the other hand, Alice would be getting one book and one hat, which have a total value of (1 book * 1) + (1 hat * 3) = 4. 
+
+From your perspective, Alice's offer is not appealing because you would be receiving items with a lower total value than what Alice would be receiving.
+
+Now, it's your turn to propose a deal. To make a fair offer and potentially reach an agreement, you could propose the following:
+
+Bob: 1 book 0 hat 0 ball
+Alice: 0 book 3 hat 2 ball
+
+In this proposed""","""'Bob: 1 book 0 hat 0 ball Alice: 0 book 3 hat 2 ball'""","(3, 9)","Thank you for the reminder. As an agent, I need to carefully consider my options and the potential outcomes of each proposal.
+
+Bob has offered to take one book and leave me with no books, while I take three hats and two balls. Let's evaluate this proposal and its implications.
+
+If I accept Bob's offer, I would be left without any books. Since the value of each book is three to me, I would lose out on a potential value of three.
+
+On the other hand, I would receive three hats, which have a value of three each to me, totaling to a value of nine. Additionally, I would receive two balls, which have no value to me.
+
+Overall, if I accept Bob's offer, I would gain a total value of nine from the hats but lose a value of three from the books. This would result in a net gain of six.
+
+Now, let's consider Bob's perspective. He would receive a book, which has a value of three to him. Since he doesn't value hats or balls, he doesn't gain any value from those items.
+
+Therefore, Bob's proposal seems to be in his favor, as he would gain a value of three from the book, while I would gain a net value of six from the hats","Accept","(3, 9)"
+
