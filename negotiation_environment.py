@@ -66,6 +66,11 @@ class NegotiationEnvironment():
         # Check if any of acceptance terms above is in the proposal
         return any(term in proposal for term in acceptance_terms)
 
+    def extract_message_to_oppponent(self, proposal_msg, opp_name):
+      regex = f'^(\w+)I send the following message to {opp_name}: (.*)$'
+      # TODO fix this
+      return proposal_msg.find(regex)
+  
     def standardize_proposal(self, proposal_msg, next_agent):
         # Standardizing to make it easy to pick out the numbers of items an agent is proposing
         current_agent_name = next_agent.name
@@ -283,6 +288,7 @@ class NegotiationEnvironment():
                 return(True)
 
         standardized_proposal = self.standardize_proposal(next_message, next_agent)
+      
         # pdb.set_trace()
         while not (self.check_validity(standardized_proposal) and num_attempts < self.max_attempts_per_round):
             num_attempts += 1
@@ -293,20 +299,24 @@ class NegotiationEnvironment():
         if num_attempts > self.max_attempts_per_round:
             raise AssertionError("Too Many Attempts to Generate Valid Proposal")
 
+        opponent = self.agents[(next_agent_index + 1) % 2]
+        opp_name = opponent.name
+
         self.message_history.append(f'"{next_message}"')
         self.proposal_history.append(f'"{standardized_proposal}"')
         computed_rewards = str(self.compute_rewards(standardized_proposal))
         print(self.output_metrics(computed_rewards))
         self.reward_history.append(computed_rewards)
 
+      
         self.current_turn += 1
         next_agent.add_message_to_history(next_message, sender='assistant')
         # Update the other agent's history as well - include original proposal
-        self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s offer: {standardized_proposal}')
         if self.conversational:
-            self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s reasoning: {next_message}')
-            # TODO: Have the agent separate its internal reasoning from
-            # the message it wants to send to the other agent
+          message_to_opponent = self.extract_message_to_oppponent(next_message, opp_name)
+          self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s offer: {standardized_proposal}.\n{next_agent.name}\'s message: {message_to_opponent}')
+        else:
+          self.agents[1 - next_agent_index].add_message_to_history(f'{next_agent.name}\'s offer: {standardized_proposal}.')
 
         if self.verbose:
             print(f"Current Turn: {self.current_turn}")
