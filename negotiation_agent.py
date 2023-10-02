@@ -71,10 +71,10 @@ All the reasoning you perform above will be kept private to you. \
 However, if you like, you may also send a message to {opp_name} by writing an additional section in your output \
 with this exact format: \
 \
-    I send the following message to {opp_name}: <MESSAGE> \
+    I will send the following message to {opp_name}:
+    <MESSAGE> \
 \
-Your <MESSAGE> should all be on a single line (the same line as "I send the following message to {opp_name}: ").\
-Don't include any newline characters after {opp_name}, and also don't include newline characters in <MESSAGE>.\
+Your <MESSAGE> should all be on a single line, on the line right after "I send the following message to {opp_name}:".\
 This message, along with your proposed item division, will be sent to {opp_name}. \
 In your message, make sure to communicate why your latest proposal is an improvement over the previous proposals. \
 Argue that your proposal is better by explaining how it achieves one or more of the following: \
